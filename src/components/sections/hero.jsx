@@ -8,7 +8,7 @@ export const Hero = () => {
   return (
     <>
       <div
-        className=" font-bold h-screen w-screen flex flex-col justify-center p-10 space-y-6 text-(--text-color)"
+        className=" font-bold  w-screen flex flex-col justify-center p-10 space-y-6 text-(--text-color)"
         style={{ backgroundImage: `url(${heroProduct})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
         <h2 className="text-center text-[1rem] sm:text-3xl text-(--text-color)">
