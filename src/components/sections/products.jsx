@@ -36,8 +36,8 @@ export const Allproducts = () => {
               <div className='bg-white rounded-lg shadow-md overflow-hidden'>
                 <img src={item.imageUrl} alt={item.name} className='w-full h-100 object-cover' />
                 <div className='p-4'>
-                  <h3 className='text-lg font-semibold'>{item.name}</h3>
-                  <p className='text-gray-600'>{item.description}</p>
+                  <h3 className='text-lg text-(--primary-color) font-semibold'>{item.name}</h3>
+                  <p className='text-gray-100'>{item.description}</p>
                   <p className='text-gray-800 font-bold'>ksh.{item.price.toFixed(2)}</p>
                   <button className='mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition'>
                     Add to Cart
