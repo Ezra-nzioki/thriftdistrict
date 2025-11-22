@@ -32,7 +32,7 @@ const Footer = () => {
 						</ul>
 					</nav>
 
-					<div>
+					<div className="md:col-span-1">
 						<h4 className="text-sm font-medium text-gray-300">Join our newsletter</h4>
 						<p className="text-xs text-gray-400 mt-2">Get 10% off your first order and updates.</p>
 						<form className="mt-3 flex gap-2" onSubmit={(e)=>e.preventDefault()}>
