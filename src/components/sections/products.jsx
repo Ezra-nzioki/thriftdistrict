@@ -29,7 +29,7 @@ export const Allproducts = () => {
         <p className='text-lg'>The products we have in stock.</p>
       </div>
 
-      <div className='relative w-full max-w-6xl mx-auto'>
+      <div className='relative w-full  overflow-hidden'>
         <div className='flex transition-transform duration-500' style={{ transform: `translateX(-${currentIndex * (100 / cardsToShow())}%)` }}>
           {allProducts.map((item) => (
             <div key={item.id} className={`flex-shrink-0 p-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4`}>

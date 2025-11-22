@@ -20,7 +20,7 @@ export const Hero = () => {
         <Btn text="shop now" className="relative z-0" />
       </div>
 
-      <div className='bg-(--secondary-color) border-2 border-(--text-color) rounded-lg w-full mx-auto -mt-2 relative z-20 p-4 md:p-6 grid grid-cols-2 md:grid-cols-4 gap-0 items-center'>
+      <div className='bg-(--secondary-color) border-2 border-(--text-color) rounded-lg md:w-auto lg:w-auto   -mt-2 mb-2 lg:mx-2 relative z-20 p-4 md:p-6 grid grid-cols-2 md:grid-cols-4 gap-0 items-center'>
         <div className="text-center p-4 border-r-2 border-b-2 md:border-b-0 border-(--text-color)">
           <h5 className="text-2xl md:text-3xl font-bold">7</h5>
           <p className="text-sm md:text-base">year experience</p>
