@@ -32,10 +32,10 @@ export const Allproducts = () => {
       <div className='relative w-full  overflow-hidden'>
         <div className='flex transition-transform duration-500' style={{ transform: `translateX(-${currentIndex * (100 / cardsToShow())}%)` }}>
           {allProducts.map((item) => (
-            <div key={item.id} className={`flex-shrink-0 p-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4`}>
-              <div className='bg-white rounded-lg shadow-md overflow-hidden'>
-                <img src={item.imageUrl} alt={item.name} className='w-full h-100 object-cover' />
-                <div className='p-4'>
+            <div key={item.id} className={`flex-shrink-0 align-center p-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4`}>
+              <div className='bg-white rounded-lg shadow-md overflow-hidden item-center'>
+                <img src={item.imageUrl} alt={item.name} className='w-lg h-[500px] object-contain' />
+                <div className='p-4 text-center'>
                   <h3 className='text-lg text-(--primary-color) font-semibold'>{item.name}</h3>
                   <p className='text-gray-100'>{item.description}</p>
                   <p className='text-gray-800 font-bold'>ksh.{item.price.toFixed(2)}</p>

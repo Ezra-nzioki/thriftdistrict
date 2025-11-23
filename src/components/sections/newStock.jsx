@@ -20,7 +20,7 @@ export const NewStock = () => {
             return(
                 <div key={item.id} className="flex flex-col h-[430px] justify-start items-center space-y-2 bg-white shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer md:w-l  mt-4 
                  p-4 rounded-lg  sm:h-[380px] md:h-[450px]    ">
-                    <img src={item.imgUrl} alt={item.name} className="md:w-[600px] h-[350px] sm:h-[350px] md:h-[350px]  object-cover rounded-2xl" />
+                    <img src={item.imgUrl} alt={item.name} className="md:w-[600px] h-[350px] sm:h-[350px] md:h-[350px]  object-contain rounded-2xl" />
                     <h3 className="mt-1 text-(--secondary-color) text-lg capitalize">{item.name}</h3>
                 </div>
             )
