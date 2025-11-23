@@ -37,8 +37,8 @@ export const Testimonials = () => {
   }
 
   return (
-    <section className="bg-(--primary-color) text-(--text-color)  py-1 px-2 md:px-8 lg:px-16">
-      <div className="flex flex-col md:flex-row justify-center items-center min-h-screen py-12">
+    <section className="bg-(--secondary-color) text-(--text-color) h-fit  py-1 px-2 md:px-8 lg:px-16">
+      <div className="flex flex-col md:flex-row justify-center items-center  py-12">
         <div className="md:w-1/2 p-8">
           <h1 className="text-3xl font-bold mb-8">What People Are Saying About Us</h1>
           
