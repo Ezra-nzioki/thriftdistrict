@@ -5,7 +5,7 @@ export const Features = () => {
     const featureImage = products[2].imageUrl;
   return (
 <>
-    <div  className='flex flex-col md:flex-row justify-center items-center md:items-start space-y-6 md:space-y-0 md:space-x-10 p-10 bg-(--secondary-color) text-(--text-color)'>
+    <div  className='flex flex-col md:flex-row justify-center items-center md:items-start space-y-6 md:space-y-0 md:space-x-10 p-10 bg-[#344F1F] text-[#F9F5F0]'>
         <div>
 
             <img src={featureImage} className=' rounded-2xl' />

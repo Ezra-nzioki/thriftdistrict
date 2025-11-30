@@ -1,16 +1,85 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Thrift District
 
-Currently, two official plugins are available:
+A modern, eco-friendly online thrift shop built with React. Explore unique, sustainable fashion finds with our responsive web application.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+- **Responsive Design** - Mobile-first approach with Tailwind CSS breakpoints
+- **Product Showcase** - Browse featured products with detailed information
+- **Hero Section** - Eye-catching landing section highlighting the brand mission
+- **Features Section** - Highlight key benefits of sustainable shopping
+- **New Stock** - Showcase newly arrived thrifted items
+- **Best Sellers** - Display top-rated products
+- **Testimonials** - Customer reviews and feedback section
+- **Navigation & Footer** - Smooth user experience with consistent layout
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- **React 19** - UI library for building interactive components
+- **Vite 7** - Modern build tool and development server
+- **Tailwind CSS 4** - Utility-first CSS framework for responsive styling
+- **JavaScript ES6+** - Modern JavaScript features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📦 Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm build
+
+# Lint code
+npm run lint
+
+# Preview production build
+npm run preview
+```
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── layout/
+│   │   ├── header.jsx      # Main header component
+│   │   ├── header.css      # Header styles
+│   │   ├── nav.jsx         # Navigation bar
+│   │   └── footer.jsx      # Footer component
+│   ├── sections/
+│   │   ├── hero.jsx        # Hero banner section
+│   │   ├── features.jsx    # Features highlight section
+│   │   ├── newStock.jsx    # New arrivals section
+│   │   ├── best.jsx        # Best sellers section
+│   │   ├── products.jsx    # All products grid
+│   │   ├── allProducts.js  # Products data/logic
+│   │   └── testimonials.jsx # Customer reviews section
+│   └── common/
+│       ├── btn.jsx         # Reusable button component
+│       └── card.jsx        # Reusable card component
+├── App.jsx                 # Main app component
+├── main.jsx                # React DOM entry point
+├── index.css               # Global styles
+└── products.js             # Product data
+```
+
+## 🎯 Core Components
+
+- **Header** - Navigation and branding
+- **Hero** - Welcome message with call-to-action
+- **Features** - Brand statistics and highlights
+- **NewStock** - Recently added items
+- **Best** - Top-rated products
+- **AllProducts** - Complete product listing
+- **Testimonials** - Customer feedback
+- **Footer** - Site footer with links
+
+## 💚 About
+
+Thrift District is dedicated to promoting sustainable fashion through an online thrift shop. Join the sustainable fashion movement and shop unique, eco-friendly clothing items.
+
+Built with ❤️ for learning React and modern web development.

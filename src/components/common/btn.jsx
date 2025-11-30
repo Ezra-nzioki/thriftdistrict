@@ -3,8 +3,8 @@ import React from 'react'
 export const Btn = (props) => {
   const { text } = props  
   return (
-    <div class="flex justify-center">
-        <button class="mt-6 px-5 py-1 bg-(--btn) text-white rounded-md hover:bg-(--btn-hover) transition ">
+    <div className="flex justify-center">
+        <button className="mt-6 px-8 py-3 bg-[#62109F] text-white rounded-md hover:bg-[#310950] transition font-semibold">
           {text}
         </button>
     </div>

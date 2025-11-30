@@ -6,7 +6,7 @@ export const Header = () => {
 
 
   return (
-    <header className="bg-white border-b ">
+    <header className="fixed top-0 left-0 right-0 bg-white border-b shadow-md z-40">
       <Nav/>
     </header>
   )

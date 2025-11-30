@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { allProducts } from '../sections/allProducts';
+import { useCart } from '../../context/CartContext';
 
 export const Allproducts = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { addToCart } = useCart();
   const totalProducts = allProducts.length;
 
   // Calculate how many cards to show based on screen size
@@ -23,7 +25,7 @@ export const Allproducts = () => {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center space-y-6 p-10 bg-(--primary-color) text-(--text-color)'>
+    <div className='flex flex-col justify-center items-center space-y-6 p-10 bg-[#F4991A] text-[#F9F5F0]'>
       <div className='text-center mb-6'>
         <h3 className='text-2xl font-bold'>All Products</h3>
         <p className='text-lg'>The products we have in stock.</p>
@@ -36,10 +38,13 @@ export const Allproducts = () => {
               <div className='bg-white rounded-lg shadow-md overflow-hidden item-center'>
                 <img src={item.imageUrl} alt={item.name} className='w-lg h-[500px] object-contain' />
                 <div className='p-4 text-center'>
-                  <h3 className='text-lg text-(--primary-color) font-semibold'>{item.name}</h3>
+                  <h3 className='text-lg text-[#344F1F] font-semibold'>{item.name}</h3>
                   <p className='text-gray-100'>{item.description}</p>
                   <p className='text-gray-800 font-bold'>ksh.{item.price.toFixed(2)}</p>
-                  <button className='mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition'>
+                  <button 
+                    onClick={() => addToCart(item)}
+                    className='mt-4 bg-[#62109F] text-white px-4 py-2 rounded-md hover:bg-[#310950] transition font-semibold'
+                  >
                     Add to Cart
                   </button>
                 </div>

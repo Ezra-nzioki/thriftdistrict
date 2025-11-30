@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Best = () => {
   return (
-    <div className='flex flex-col justify-center items-center space-y-6 p-10 bg-(--primary-color) text-(--text-color) lg:flex-row lg:space-x-10 lg:space-y-0'>
+    <div className='flex flex-col justify-center items-center space-y-6 p-10 bg-[#F4991A] text-[#F9F5F0] lg:flex-row lg:space-x-10 lg:space-y-0'>
         <div className='space-y-4 max-w-lg text-center lg:text-left'>
             <h3 className='font-bold capitalize text-2xl'>
                 The best jeans plug around you😉

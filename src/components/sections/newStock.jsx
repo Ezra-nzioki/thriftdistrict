@@ -4,7 +4,7 @@ import { newProducts } from '../sections/arrival'
 export const NewStock = () => {
 
   return (
-    <div className='flex flex-col justify-center items-center space-y-6 p-10 bg-(--primary-color) text-(--text-color) lg:flex-row'>
+    <div className='flex flex-col justify-center items-center space-y-6 p-10 bg-[#F4991A] text-[#F9F5F0] lg:flex-row'>
         <div>
             <h2 className='font-bold capitalize text-2xl'>
                 new in stock
@@ -21,7 +21,7 @@ export const NewStock = () => {
                 <div key={item.id} className="flex flex-col h-[430px] justify-start items-center space-y-2 bg-white shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer md:w-l  mt-4 
                  p-4 rounded-lg  sm:h-[380px] md:h-[450px]    ">
                     <img src={item.imgUrl} alt={item.name} className="md:w-[600px] h-[350px] sm:h-[350px] md:h-[350px]  object-contain rounded-2xl" />
-                    <h3 className="mt-1 text-(--secondary-color) text-lg capitalize">{item.name}</h3>
+                    <h3 className="mt-1 text-[#344F1F] text-lg capitalize">{item.name}</h3>
                 </div>
             )
            }

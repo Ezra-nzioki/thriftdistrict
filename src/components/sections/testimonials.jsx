@@ -37,8 +37,8 @@ export const Testimonials = () => {
   }
 
   return (
-    <section className="bg-(--secondary-color) text-(--text-color) h-fit  py-1 px-2 md:px-8 lg:px-16">
-      <div className="flex flex-col md:flex-row justify-center items-center  py-12">
+    <section className="bg-[#344F1F] text-[#F9F5F0] h-fit py-1 px-2 md:px-8 lg:px-16">
+      <div className="flex flex-col md:flex-row justify-center items-center py-12">
         <div className="md:w-1/2 p-8">
           <h1 className="text-3xl font-bold mb-8">What People Are Saying About Us</h1>
           
@@ -50,17 +50,17 @@ export const Testimonials = () => {
             />
             <div>
               <h2 className="text-lg font-bold">{currentTestimonial.name}</h2>
-              <p className="text-gray-500">{currentTestimonial.role}</p>
+              <p className="text-[#F4991A]">{currentTestimonial.role}</p>
             </div>
           </div>
           
-          <p className="text-gray-700 mb-8 text-lg">"{currentTestimonial.quote}"</p>
+          <p className="text-[#F9F5F0] mb-8 text-lg">"{currentTestimonial.quote}"</p>
 
           {/* Navigation Buttons */}
           <div className="flex gap-4 items-center">
             <button 
               onClick={handlePrev}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition"
+              className="bg-[#62109F] hover:bg-[#310950] text-white font-bold py-2 px-6 rounded-lg transition"
             >
               ← Previous
             </button>
@@ -72,7 +72,7 @@ export const Testimonials = () => {
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`w-3 h-3 rounded-full transition ${
-                    index === currentIndex ? 'bg-blue-600' : 'bg-gray-300'
+                    index === currentIndex ? 'bg-[#F4991A]' : 'bg-gray-500'
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
@@ -81,7 +81,7 @@ export const Testimonials = () => {
 
             <button 
               onClick={handleNext}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition"
+              className="bg-[#62109F] hover:bg-[#310950] text-white font-bold py-2 px-6 rounded-lg transition"
             >
               Next →
             </button>

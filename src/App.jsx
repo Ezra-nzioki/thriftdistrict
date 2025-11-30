@@ -15,12 +15,14 @@ function App() {
   return (
     <>
      <Header/>
-     <Hero/>
-     <Features/>
-     <NewStock/>
-     <Best/>
-     <Allproducts/>
-     <Testimonials/>
+     <main className="pt-16">
+       <Hero/>
+       <Features/>
+       <NewStock/>
+       <Best/>
+       <Allproducts/>
+       <Testimonials/>
+     </main>
      <Footer/>
     </>
   )
