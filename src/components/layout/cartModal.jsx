@@ -1,8 +1,10 @@
 import React from 'react'
 import { useCart } from '../../context/CartContext'
+import { useNavigate } from 'react-router-dom'
 
 export const CartModal = ({ isOpen, onClose }) => {
   const { cartItems, removeFromCart, updateQuantity, getTotalPrice, clearCart } = useCart()
+  const navigate = useNavigate()
 
   if (!isOpen) return null
 
@@ -37,12 +39,12 @@ export const CartModal = ({ isOpen, onClose }) => {
             <div className="space-y-4">
               {cartItems.map((item) => (
                 <div
-                  key={item.id}
+                  key={item._id}
                   className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-[#F4991A] transition"
                 >
                   {/* Product Image */}
                   <img
-                    src={item.imageUrl || item.imgUrl}
+                    src={item.image}
                     alt={item.name}
                     className="w-20 h-20 object-cover rounded"
                   />
@@ -56,7 +58,7 @@ export const CartModal = ({ isOpen, onClose }) => {
                   {/* Quantity Controls */}
                   <div className="flex items-center gap-2 bg-white border border-gray-300 rounded">
                     <button
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      onClick={() => updateQuantity(item._id, item.quantity - 1)}
                       className="px-3 py-1 text-[#344F1F] hover:bg-gray-100 transition"
                     >
                       −
@@ -65,7 +67,7 @@ export const CartModal = ({ isOpen, onClose }) => {
                       {item.quantity}
                     </span>
                     <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      onClick={() => updateQuantity(item._id, item.quantity + 1)}
                       className="px-3 py-1 text-[#344F1F] hover:bg-gray-100 transition"
                     >
                       +
@@ -81,7 +83,7 @@ export const CartModal = ({ isOpen, onClose }) => {
 
                   {/* Remove Button */}
                   <button
-                    onClick={() => removeFromCart(item.id)}
+                    onClick={() => removeFromCart(item._id)}
                     className="p-2 text-red-500 hover:bg-red-50 rounded transition"
                   >
                     🗑️
@@ -114,7 +116,10 @@ export const CartModal = ({ isOpen, onClose }) => {
               >
                 Continue Shopping
               </button>
-              <button className="flex-1 px-4 py-3 bg-[#F4991A] text-[#344F1F] font-semibold rounded-lg hover:bg-[#E07A0D] transition">
+              <button 
+                onClick={() => { onClose(); navigate('/checkout'); }}
+                className="flex-1 px-4 py-3 bg-[#F4991A] text-[#344F1F] font-semibold rounded-lg hover:bg-[#E07A0D] transition"
+              >
                 Checkout
               </button>
             </div>

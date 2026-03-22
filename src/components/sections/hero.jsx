@@ -1,21 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Btn } from '../common/btn'
-import { products } from '../../products'
 
 export const Hero = () => {
-  const heroProduct = products[0].imageUrl; // using first product for hero
-  console.log(products)
+  const [content, setContent] = useState({});
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      const res = await fetch('https://fluffy-winner-xjggrr5xp593v6qp-5001.app.github.dev/api/content');
+      const data = await res.json();
+      const contentObj = {};
+      data.forEach(item => {
+        contentObj[item.section] = item.data;
+      });
+      setContent(contentObj);
+    };
+    fetchContent();
+  }, []);
+
   return (
     <>
       <div
         className="font-bold w-screen flex flex-col justify-center p-10 space-y-6 text-[#F9F5F0] min-h-[500px]"
-        style={{ backgroundImage: `url(${heroProduct})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        style={{ backgroundImage: `url(${content.hero?.image || 'https://via.placeholder.com/800'})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
         <h2 className="text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl text-[#F9F5F0] leading-relaxed drop-shadow-lg">
-          Reduce, Reuse, Revamp!<br/>
-          Explore our online thrift shop<br/>
-          For unique, eco-friendly fashion finds.<br/>
-          Shop with us and join the sustainable fashion movement
+          {content.hero?.title || 'Reduce, Reuse, Revamp!<br/>Explore our online thrift shop<br/>For unique, eco-friendly fashion finds.<br/>Shop with us and join the sustainable fashion movement'}
         </h2>
         <Btn text="shop now" className="relative z-0" />
       </div>

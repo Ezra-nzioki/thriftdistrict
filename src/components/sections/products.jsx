@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
-import { allProducts } from '../sections/allProducts';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../../context/CartContext';
 
 export const Allproducts = () => {
+  const [products, setProducts] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { addToCart } = useCart();
-  const totalProducts = allProducts.length;
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('https://fluffy-winner-xjggrr5xp593v6qp-5001.app.github.dev/api/products');
+        const data = await res.json();
+        setProducts(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const totalProducts = products.length;
 
   // Calculate how many cards to show based on screen size
   const cardsToShow = () => {
@@ -33,10 +47,10 @@ export const Allproducts = () => {
 
       <div className='relative w-full  overflow-hidden'>
         <div className='flex transition-transform duration-500' style={{ transform: `translateX(-${currentIndex * (100 / cardsToShow())}%)` }}>
-          {allProducts.map((item) => (
-            <div key={item.id} className={`flex-shrink-0 align-center p-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4`}>
+          {products.map((item) => (
+            <div key={item._id} className={`flex-shrink-0 align-center p-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4`}>
               <div className='bg-white rounded-lg shadow-md overflow-hidden item-center'>
-                <img src={item.imageUrl} alt={item.name} className='w-lg h-[500px] object-contain' />
+                <img src={item.image} alt={item.name} className='w-lg h-[500px] object-contain' />
                 <div className='p-4 text-center'>
                   <h3 className='text-lg text-[#344F1F] font-semibold'>{item.name}</h3>
                   <p className='text-gray-100'>{item.description}</p>
