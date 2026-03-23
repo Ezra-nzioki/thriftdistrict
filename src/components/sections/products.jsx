@@ -9,7 +9,7 @@ export const Allproducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('https://fluffy-winner-xjggrr5xp593v6qp-5001.app.github.dev/api/products');
+        const res = await fetch('https://thriftdistrict.onrender.com/api/products');
         const data = await res.json();
         setProducts(data);
       } catch (err) {

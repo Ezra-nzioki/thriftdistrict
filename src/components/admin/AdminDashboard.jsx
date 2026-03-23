@@ -22,14 +22,14 @@ const AdminDashboard = () => {
   }, [navigate]);
 
   const fetchProducts = async () => {
-    const res = await fetch('https://fluffy-winner-xjggrr5xp593v6qp-5001.app.github.dev/api/products');
+    const res = await fetch('https://thriftdistrict.onrender.com/api/products');
     const data = await res.json();
     setProducts(data);
   };
 
   const fetchOrders = async () => {
     const token = localStorage.getItem('token');
-    const res = await fetch('https://fluffy-winner-xjggrr5xp593v6qp-5001.app.github.dev/api/orders', {
+    const res = await fetch('https://thriftdistrict.onrender.com/api/orders', {
       headers: { 'Authorization': `Bearer ${token}` },
     });
     const data = await res.json();
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    const url = editing ? `https://fluffy-winner-xjggrr5xp593v6qp-5001.app.github.dev/api/products/${editing}` : 'https://fluffy-winner-xjggrr5xp593v6qp-5001.app.github.dev/api/products';
+    const url = editing ? `https://thriftdistrict.onrender.com/api/products/${editing}` : 'https://thriftdistrict.onrender.com/api/products';
     const method = editing ? 'PUT' : 'POST';
     const res = await fetch(url, {
       method,
@@ -63,7 +63,7 @@ const AdminDashboard = () => {
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem('token');
-    await fetch(`https://fluffy-winner-xjggrr5xp593v6qp-5001.app.github.dev/api/products/${id}`, {
+    await fetch(`https://thriftdistrict.onrender.com/api/products/${id}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${token}` },
     });
@@ -71,7 +71,7 @@ const AdminDashboard = () => {
   };
 
   const fetchContent = async () => {
-    const res = await fetch('https://fluffy-winner-xjggrr5xp593v6qp-5001.app.github.dev/api/content');
+    const res = await fetch('https://thriftdistrict.onrender.com/api/content');
     const data = await res.json();
     const contentObj = {};
     data.forEach(item => {
@@ -82,7 +82,7 @@ const AdminDashboard = () => {
 
   const updateContent = async (section, data) => {
     const token = localStorage.getItem('token');
-    await fetch(`https://fluffy-winner-xjggrr5xp593v6qp-5001.app.github.dev/api/content/${section}`, {
+    await fetch(`https://thriftdistrict.onrender.com/api/content/${section}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
