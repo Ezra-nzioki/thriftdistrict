@@ -19,7 +19,7 @@ const Checkout = () => {
     const total = getTotalPrice();
 
     try {
-      const res = await fetch('https://fluffy-winner-xjggrr5xp593v6qp-5001.app.github.dev/api/orders', {
+      const res = await fetch('https://thriftdistrict.onrender.com/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ items, total, ...form }),

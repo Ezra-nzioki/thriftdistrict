@@ -6,7 +6,7 @@ export const Hero = () => {
 
   useEffect(() => {
     const fetchContent = async () => {
-      const res = await fetch('https://fluffy-winner-xjggrr5xp593v6qp-5001.app.github.dev/api/content');
+      const res = await fetch('https://thriftdistrict.onrender.com/api/content');
       const data = await res.json();
       const contentObj = {};
       data.forEach(item => {
