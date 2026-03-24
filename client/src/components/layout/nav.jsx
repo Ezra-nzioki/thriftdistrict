@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useCart } from '../../context/CartContext'
 import { CartModal } from './cartModal'
+import { Link } from 'react-router-dom'
 
 export const Nav = () => {
   const [open, setOpen] = useState(false)
@@ -50,7 +51,9 @@ export const Nav = () => {
                 </span>
               )}
             </button>
-
+            <Link to="/admin">
+              admin
+            </Link>
             <div className="md:hidden">
               <button
                 onClick={() => setOpen(!open)}
@@ -70,6 +73,9 @@ export const Nav = () => {
                   </svg>
                 )}
               </button>
+              <Link to="/admin">
+              admin
+              </Link>
             </div>
           </div>
         </div>
@@ -90,6 +96,9 @@ export const Nav = () => {
             >
               🛒 Cart ({getTotalItems()})
             </button>
+            <Link to="/admin">
+            admin
+            </Link>
           </div>
         </div>
       )}

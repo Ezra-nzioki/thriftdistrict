@@ -23,7 +23,7 @@ function App() {
           <Route path="/" element={
             <>
               <Hero/>
-              <Features/>
+              <Features/> 
               <NewStock/>
               <Best/>
               <Allproducts/>
@@ -33,6 +33,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminDashboard/>}/>
         </Routes>
       </main>
       <Footer/>

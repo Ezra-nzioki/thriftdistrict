@@ -20,7 +20,7 @@ export const Hero = () => {
   return (
     <>
       <div
-        className="font-bold w-screen flex flex-col justify-center p-10 space-y-6 text-[#F9F5F0] min-h-[500px]"
+        className="font-bold w-screen flex flex-col justify-center p-10 space-y-6 text-red-900 min-h-[500px]"
         style={{ backgroundImage: `url(${content.hero?.image || 'https://via.placeholder.com/800'})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
         <h2 className="text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl text-[#F9F5F0] leading-relaxed drop-shadow-lg">
