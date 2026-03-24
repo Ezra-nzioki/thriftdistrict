@@ -23,7 +23,9 @@ export const Nav = () => {
             <a href="/about" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">About</a>
             <a href="/contact" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">Contact</a>
           </nav>
-
+           <Link to="/admin">
+           admin
+           </Link>
           <div className="flex items-center gap-4">
             {/* Cart Icon */}
             <button
