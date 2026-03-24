@@ -22,6 +22,10 @@ export const Nav = () => {
             <a href="/" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">Home</a>
             <a href="/about" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">About</a>
             <a href="/contact" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">Contact</a>
+          
+          <Link to="/admin">
+          admin
+          </Link>
           </nav>
            <Link to="/admin">
            admin
@@ -75,9 +79,7 @@ export const Nav = () => {
                   </svg>
                 )}
               </button>
-              <Link to="/admin">
-              admin
-              </Link>
+        
             </div>
           </div>
         </div>
