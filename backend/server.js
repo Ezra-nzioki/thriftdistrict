@@ -11,10 +11,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/thriftdistrict', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+    // Connect to MongoDB
+   try {
+        await mongoose.connect(MONGO_URL)
+
+        console.log("database connected!!")
+    } catch (error) {
+        console.error("failed to connect", error)
+   }
 .then(async () => {
   console.log('MongoDB connected');
   // Create admin user if not exists
