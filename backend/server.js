@@ -11,26 +11,29 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-    // Connect to MongoDB
-   try {
-        await mongoose.connect(MONGO_URL)
+const MONGO_URL = process.env.MONGO_URI;
+const PORT = process.env.PORT || 5000;
 
-        console.log("database connected!!")
-    } catch (error) {
-        console.error("failed to connect", error)
-   }
-.then(async () => {
-  console.log('MongoDB connected');
-  // Create admin user if not exists
-  const adminExists = await User.findOne({ username: 'admin' });
-  if (!adminExists) {
-    const hashedPassword = await bcrypt.hash('admin123', 10);
-    const admin = new User({ username: 'admin', password: hashedPassword, role: 'admin' });
-    await admin.save();
-    console.log('Admin user created: username: admin, password: admin123');
+async function startServer() {
+  try {
+    await mongoose.connect(MONGO_URL);
+    console.log('database connected!!');
+
+    const adminExists = await User.findOne({ username: 'admin' });
+    if (!adminExists) {
+      const hashedPassword = await bcrypt.hash('admin123', 10);
+      const admin = new User({ username: 'admin', password: hashedPassword, role: 'admin' });
+      await admin.save();
+      console.log('Admin user created: username: admin, password: admin123');
+    }
+
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  } catch (error) {
+    console.error('failed to connect', error);
   }
-})
-.catch(err => console.log(err));
+}
+
+startServer();
 
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
@@ -41,6 +44,3 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/content', contentRoutes);
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
