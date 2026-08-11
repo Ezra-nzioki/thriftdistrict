@@ -19,12 +19,12 @@ async function startServer() {
     await mongoose.connect(MONGO_URL);
     console.log('database connected!!');
 
-    const adminExists = await User.findOne({ username: 'admin' });
+    const adminExists = await User.findOne({ username: 'ezra' });
     if (!adminExists) {
-      const hashedPassword = await bcrypt.hash('admin123', 10);
-      const admin = new User({ username: 'admin', password: hashedPassword, role: 'admin' });
+      const hashedPassword = await bcrypt.hash('Ezm2580@', 10);
+      const admin = new User({ username: 'ezra', password: hashedPassword, role: 'admin' });
       await admin.save();
-      console.log('Admin user created: username: admin, password: admin123');
+      console.log('Admin user created: username: ezra, password: 🔐');
     }
 
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
