@@ -3,7 +3,7 @@ export const products = [
         id: 1,
         name: "Vintage Denim Jacket",
         description: "A classic blue denim jacket from the 80s, perfect for layering.",
-        price: 45.00,
+        price: 55.00,
         imageUrl: "https://i.pinimg.com/1200x/1b/94/2c/1b942c9c78be7d1cb82d8174c5991e7e.jpg",
     },
     {
