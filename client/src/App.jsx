@@ -11,6 +11,8 @@ import Footer from './components/layout/footer'
 import AdminLogin from './components/admin/AdminLogin'
 import AdminDashboard from './components/admin/AdminDashboard'
 import Checkout from './components/checkout/Checkout'
+import AboutPage from './components/pages/AboutPage'
+import ContactPage from './components/pages/ContactPage'
 
 function App() {
   
@@ -31,6 +33,8 @@ function App() {
             </>
           } />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin" element={<AdminDashboard/>}/>

@@ -48,7 +48,7 @@ const Footer = () => {
 					<div className="flex gap-4">
 						<a href="#" className="hover:text-[#F4991A] transition">Privacy</a>
 						<a href="#" className="hover:text-[#F4991A] transition">Terms</a>
-						<a href="#" className="hover:text-[#F4991A] transition">Contact</a>
+							<a href="/contact" className="hover:text-[#F4991A] transition">Contact</a>
 					</div>
 				</div>
 			</div>
