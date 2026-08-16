@@ -80,6 +80,27 @@ const AdminDashboard = () => {
     setContent(contentObj);
   };
 
+  const updateOrderStatus = async (id, status) => {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`https://thriftdistrict.onrender.com/api/orders/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ status }),
+    });
+
+    if (res.ok) {
+      const updatedOrder = await res.json();
+      setOrders((prevOrders) =>
+        prevOrders.map((order) =>
+          order._id === id ? { ...order, status: updatedOrder.status } : order
+        )
+      );
+    }
+  };
+
   const updateContent = async (section, data) => {
     const token = localStorage.getItem('token');
     await fetch(`https://thriftdistrict.onrender.com/api/content/${section}`, {
