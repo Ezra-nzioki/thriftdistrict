@@ -18,6 +18,7 @@ const AdminLogin = () => {
       if (res.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('role', data.role);
+        window.dispatchEvent(new Event('user-auth-change'));
         navigate('/admin/dashboard');
       } else {
         alert(data.error);

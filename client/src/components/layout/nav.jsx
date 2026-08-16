@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useCart } from '../../context/CartContext'
 import { CartModal } from './cartModal'
 import { Link } from 'react-router-dom'
@@ -6,7 +6,24 @@ import { Link } from 'react-router-dom'
 export const Nav = () => {
   const [open, setOpen] = useState(false)
   const [isCartOpen, setIsCartOpen] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const { getTotalItems } = useCart()
+
+  useEffect(() => {
+    const updateAdminStatus = () => {
+      const token = localStorage.getItem('token')
+      const role = localStorage.getItem('role')
+      setIsAdmin(Boolean(token && role === 'admin'))
+    }
+
+    updateAdminStatus()
+    window.addEventListener('user-auth-change', updateAdminStatus)
+
+    return () => {
+      window.removeEventListener('user-auth-change', updateAdminStatus)
+    }
+  }, [])
+
   return (
  <>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,12 +69,14 @@ export const Nav = () => {
               )}
             </button>
 
-            <Link
-              to="/admin"
-              className="hidden md:inline-flex items-center px-3 py-2 text-sm font-medium text-[#344F1F] hover:text-[#F4991A] transition"
-            >
-              admin
-            </Link>
+            {isAdmin && (
+              <Link
+                to="/admin"
+                className="hidden md:inline-flex items-center px-3 py-2 text-sm font-medium text-[#344F1F] hover:text-[#F4991A] transition"
+              >
+                admin
+              </Link>
+            )}
 
             <div className="md:hidden">
               <button
@@ -98,12 +117,14 @@ export const Nav = () => {
             >
               🛒 Cart ({getTotalItems()})
             </button>
-            <Link
-              to="/admin"
-              className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium"
-            >
-              admin
-            </Link>
+            {isAdmin && (
+              <Link
+                to="/admin"
+                className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium"
+              >
+                admin
+              </Link>
+            )}
           </div>
         </div>
       )}

@@ -7,19 +7,28 @@ const AdminDashboard = () => {
   const [content, setContent] = useState({});
   const [form, setForm] = useState({ name: '', description: '', price: '', image: '', category: '', stock: '' });
   const [editing, setEditing] = useState(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
+
     if (!token || role !== 'admin') {
       navigate('/admin/login');
-    } else {
-      fetchProducts();
-      fetchOrders();
-      fetchContent();
+      setIsCheckingAuth(false);
+      return;
     }
+
+    setIsCheckingAuth(false);
+    fetchProducts();
+    fetchOrders();
+    fetchContent();
   }, [navigate]);
+
+  if (isCheckingAuth) {
+    return <div className="p-6 text-center text-[#344F1F]">Checking admin access...</div>;
+  }
 
   const fetchProducts = async () => {
     const res = await fetch('https://thriftdistrict.onrender.com/api/products');
