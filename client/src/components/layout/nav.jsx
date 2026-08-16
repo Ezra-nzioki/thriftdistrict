@@ -69,14 +69,12 @@ export const Nav = () => {
               )}
             </button>
 
-            {isAdmin && (
-              <Link
-                to="/admin"
-                className="hidden md:inline-flex items-center px-3 py-2 text-sm font-medium text-[#344F1F] hover:text-[#F4991A] transition"
-              >
-                admin
-              </Link>
-            )}
+            <Link
+              to="/admin/login"
+              className="hidden md:inline-flex items-center px-3 py-2 text-sm font-medium text-[#344F1F] hover:text-[#F4991A] transition"
+            >
+              admin
+            </Link>
 
             <div className="md:hidden">
               <button
@@ -117,14 +115,12 @@ export const Nav = () => {
             >
               🛒 Cart ({getTotalItems()})
             </button>
-            {isAdmin && (
-              <Link
-                to="/admin"
-                className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium"
-              >
-                admin
-              </Link>
-            )}
+            <Link
+              to="/admin/login"
+              className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium"
+            >
+              admin
+            </Link>
           </div>
         </div>
       )}
