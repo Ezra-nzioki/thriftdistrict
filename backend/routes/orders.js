@@ -20,9 +20,13 @@ const verifyToken = (req, res, next) => {
 
 // Create order (for checkout)
 router.post('/', async (req, res) => {
-  const { items, total } = req.body;
+  const { items, total, name, email, phone, address } = req.body;
   try {
-    const order = new Order({ items, total });
+    const order = new Order({
+      items,
+      total,
+      customer: { name, email, phone, address }
+    });
     await order.save();
     res.status(201).json(order);
   } catch (err) {
@@ -49,6 +53,19 @@ router.put('/:id', verifyToken, async (req, res) => {
   try {
     const order = await Order.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(order);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// Delete an order (admin only)
+router.delete('/:id', verifyToken, async (req, res) => {
+  if (req.user.role !== 'admin') return res.status(403).json({ error: 'Admin access required' });
+
+  try {
+    const order = await Order.findByIdAndDelete(req.params.id);
+    if (!order) return res.status(404).json({ error: 'Order not found' });
+    res.json({ message: 'Order deleted' });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

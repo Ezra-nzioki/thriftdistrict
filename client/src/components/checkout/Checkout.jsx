@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
   const { cartItems, clearCart, getTotalPrice } = useCart();
-  const [form, setForm] = useState({ name: '', email: '', address: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', address: '' });
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -26,6 +26,18 @@ const Checkout = () => {
       });
       if (res.ok) {
         clearCart();
+        const adminMessage = [
+          'New Thrift District order',
+          `Customer: ${form.name}`,
+          `Phone: ${form.phone}`,
+          `Email: ${form.email}`,
+          `Address: ${form.address}`,
+          '',
+          'Items:',
+          ...items.map((item) => `${item.name} | Qty: ${item.quantity} | Ksh. ${item.price} | Image: ${item.image}`),
+          `Total: Ksh. ${total}`
+        ].join('\n');
+        window.open(`https://wa.me/254710865376?text=${encodeURIComponent(adminMessage)}`, '_blank', 'noopener,noreferrer');
         alert('Order placed successfully!');
         navigate('/');
       } else {
@@ -70,6 +82,14 @@ const Checkout = () => {
               placeholder="Email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className="block w-full mb-2 p-2 border"
+              required
+            />
+            <input
+              type="tel"
+              placeholder="WhatsApp phone number"
+              value={form.phone}
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
               className="block w-full mb-2 p-2 border"
               required
             />

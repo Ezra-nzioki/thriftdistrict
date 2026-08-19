@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AdminDashboard = () => {
+  const adminWhatsAppNumber = '254710865376';
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [content, setContent] = useState({});
@@ -91,7 +92,54 @@ const AdminDashboard = () => {
           order._id === id ? { ...order, status: updatedOrder.status } : order
         )
       );
+
+      if (status === 'completed') {
+        const order = orders.find((item) => item._id === id);
+        if (order?.customer?.phone) {
+          const customerMessage = [
+            `Hello ${order.customer.name}, your Thrift District order is confirmed and complete.`,
+            '',
+            'Order details:',
+            ...order.items.map((item) => `${item.name} | Qty: ${item.quantity} | Ksh. ${item.price} | Image: ${item.image}`),
+            `Total: Ksh. ${order.total}`,
+            `Delivery address: ${order.customer.address}`
+          ].join('\n');
+          const customerNumber = order.customer.phone.replace(/\D/g, '').replace(/^0/, '254');
+          window.open(`https://wa.me/${customerNumber}?text=${encodeURIComponent(customerMessage)}`, '_blank', 'noopener,noreferrer');
+        } else {
+          alert('Order completed, but this order has no customer WhatsApp number.');
+        }
+      }
     }
+  };
+
+  const deleteOrder = async (id) => {
+    if (!window.confirm('Delete this completed order?')) return;
+
+    const token = localStorage.getItem('token');
+    const res = await fetch(`https://thriftdistrict.onrender.com/api/orders/${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${token}` },
+    });
+
+    if (res.ok) {
+      setOrders((prevOrders) => prevOrders.filter((order) => order._id !== id));
+    } else {
+      alert('Could not delete this order.');
+    }
+  };
+
+  const sendOrderToAdminWhatsApp = (order) => {
+    const message = [
+      'Thrift District order',
+      `Customer: ${order.customer?.name || 'Unknown'}`,
+      `Phone: ${order.customer?.phone || 'Unknown'}`,
+      `Address: ${order.customer?.address || 'Unknown'}`,
+      '',
+      ...order.items.map((item) => `${item.name} | Qty: ${item.quantity} | Ksh. ${item.price} | Image: ${item.image}`),
+      `Total: Ksh. ${order.total}`
+    ].join('\n');
+    window.open(`https://wa.me/${adminWhatsAppNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   };
 
   const updateContent = async (section, data) => {
@@ -196,6 +244,9 @@ const AdminDashboard = () => {
         {orders.map((order) => (
           <li key={order._id} className="mb-4 p-4 border rounded">
             <p><strong>Order ID:</strong> {order._id}</p>
+            <p><strong>Customer:</strong> {order.customer?.name || 'Unknown'}</p>
+            <p><strong>WhatsApp:</strong> {order.customer?.phone || 'Not provided'}</p>
+            <p><strong>Address:</strong> {order.customer?.address || 'Not provided'}</p>
             <p><strong>Total:</strong> Ksh. {order.total}</p>
             <p><strong>Status:</strong> {order.status}</p>
             <p><strong>Items:</strong></p>
@@ -210,6 +261,8 @@ const AdminDashboard = () => {
             <div className="mt-2">
               <button onClick={() => updateOrderStatus(order._id, 'completed')} className="bg-green-500 text-white px-2 py-1 rounded mr-2">Mark Completed</button>
               <button onClick={() => updateOrderStatus(order._id, 'pending')} className="bg-yellow-500 text-white px-2 py-1 rounded">Mark Pending</button>
+              <button onClick={() => sendOrderToAdminWhatsApp(order)} className="bg-[#25D366] text-white px-2 py-1 rounded ml-2">Send to my WhatsApp</button>
+              {order.status === 'completed' && <button onClick={() => deleteOrder(order._id)} className="bg-red-500 text-white px-2 py-1 rounded ml-2">Delete Order</button>}
             </div>
           </li>
         ))}
