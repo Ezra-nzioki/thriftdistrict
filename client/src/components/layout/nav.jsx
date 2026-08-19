@@ -36,9 +36,9 @@ export const Nav = () => {
           </a>
 
           <nav className="hidden md:flex md:items-center md:space-x-8">
-            <a href="/" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">Home</a>
-            <a href="/about" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">About</a>
-            <a href="/contact" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">Contact</a>
+            <Link to="/" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">Home</Link>
+            <Link to="/about" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">About</Link>
+            <Link to="/contact" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">Contact</Link>
           </nav>
         
           <div className="flex items-center gap-4">
@@ -103,9 +103,9 @@ export const Nav = () => {
       {open && (
         <div className="md:hidden bg-white border-t border-gray-200">
           <div className="px-4 pt-2 pb-4 space-y-1">
-            <a href="/" className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium">Home</a>
-            <a href="/about" className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium">About</a>
-            <a href="/contact" className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium">Contact</a>
+            <Link to="/" className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium">Home</Link>
+            <Link to="/about" className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium">About</Link>
+            <Link to="/contact" className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium">Contact</Link>
             <button
               onClick={() => {
                 setIsCartOpen(true)
