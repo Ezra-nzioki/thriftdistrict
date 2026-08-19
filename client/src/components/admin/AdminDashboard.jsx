@@ -7,28 +7,12 @@ const AdminDashboard = () => {
   const [content, setContent] = useState({});
   const [form, setForm] = useState({ name: '', description: '', price: '', image: '', category: '', stock: '' });
   const [editing, setEditing] = useState(null);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
-  const navigate = useNavigate();
-
-  useEffect(() => {
+  const [isCheckingAuth] = useState(() => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
-
-    if (!token || role !== 'admin') {
-      navigate('/admin/login');
-      setIsCheckingAuth(false);
-      return;
-    }
-
-    setIsCheckingAuth(false);
-    fetchProducts();
-    fetchOrders();
-    fetchContent();
-  }, [navigate]);
-
-  if (isCheckingAuth) {
-    return <div className="p-6 text-center text-[#344F1F]">Checking admin access...</div>;
-  }
+    return !token || role !== 'admin';
+  });
+  const navigate = useNavigate();
 
   const fetchProducts = async () => {
     const res = await fetch('https://thriftdistrict.onrender.com/api/products');
@@ -122,6 +106,26 @@ const AdminDashboard = () => {
     });
     fetchContent();
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+
+    if (!token || role !== 'admin') {
+      navigate('/admin/login');
+      return;
+    }
+
+    queueMicrotask(() => {
+      fetchProducts();
+      fetchOrders();
+      fetchContent();
+    });
+  }, [navigate]);
+
+  if (isCheckingAuth) {
+    return <div className="p-6 text-center text-[#344F1F]">Checking admin access...</div>;
+  }
 
   return (
     <div className="p-6">
