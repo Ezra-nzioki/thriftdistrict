@@ -30,6 +30,8 @@ function App() {
               <Best/>
               <Allproducts/>
               <Testimonials/>
+              <AboutPage/>
+              <ContactPage/>
             </>
           } />
           <Route path="/checkout" element={<Checkout />} />

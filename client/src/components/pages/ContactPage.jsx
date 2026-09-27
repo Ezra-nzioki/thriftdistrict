@@ -85,18 +85,6 @@ const ContactPage = () => {
         </div>
       </div>
 
-      <div className="mt-12 overflow-hidden rounded-2xl border border-gray-200 shadow-lg">
-        <iframe
-          title="Thrift District map"
-          src="https://www.google.com/maps?q=One%20Mall%20River%20Road%20Nairobi&z=15&output=embed"
-          width="100%"
-          height="420"
-          style={{ border: 0 }}
-          allowFullScreen=""
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
-      </div>
     </section>
   )
 }
