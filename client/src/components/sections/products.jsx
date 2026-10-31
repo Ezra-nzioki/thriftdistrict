@@ -1,23 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 
-export const Allproducts = () => {
-  const [products, setProducts] = useState([]);
+export const Allproducts = ({ products }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { addToCart } = useCart();
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch('https://thriftdistrict.onrender.com/api/products');
-        const data = await res.json();
-        setProducts(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchProducts();
-  }, []);
 
   const totalProducts = products.length;
 

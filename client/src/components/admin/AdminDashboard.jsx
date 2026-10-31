@@ -7,6 +7,8 @@ const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
   const [content, setContent] = useState({});
   const [form, setForm] = useState({ name: '', description: '', price: '', image: '', category: '', stock: '' });
+  const [uploadingImageFor, setUploadingImageFor] = useState('');
+  const [uploadError, setUploadError] = useState('');
   const [editing, setEditing] = useState(null);
   const [isCheckingAuth] = useState(() => {
     const token = localStorage.getItem('token');
@@ -72,6 +74,44 @@ const AdminDashboard = () => {
       contentObj[item.section] = item.data;
     });
     setContent(contentObj);
+  };
+
+  const uploadImage = async (event, target) => {
+    const file = event.currentTarget.files?.[0];
+    const input = event.currentTarget;
+    if (!file) return;
+
+    setUploadingImageFor(target);
+    setUploadError('');
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+      const res = await fetch('https://thriftdistrict.onrender.com/api/products/upload', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+        body: formData,
+      });
+      const contentType = res.headers.get('content-type') || '';
+      const data = contentType.includes('application/json') ? await res.json() : null;
+      if (!res.ok) {
+        if (res.status === 404) {
+          throw new Error('The image upload API is not deployed yet. Deploy the latest backend and try again.');
+        }
+        throw new Error(data?.error || `Image upload failed (${res.status}).`);
+      }
+      if (!data?.url) throw new Error('The server did not return an image URL.');
+
+      if (target === 'product') {
+        setForm((current) => ({ ...current, image: data.url }));
+      } else {
+        setContent((current) => ({ ...current, hero: { ...current.hero, image: data.url } }));
+      }
+    } catch (error) {
+      setUploadError(error.message);
+    } finally {
+      setUploadingImageFor('');
+      input.value = '';
+    }
   };
 
   const updateOrderStatus = async (id, status) => {
@@ -209,6 +249,12 @@ const AdminDashboard = () => {
           onChange={(e) => setForm({ ...form, image: e.target.value })}
           className="block w-full mb-2 p-2 border"
         />
+        <label className="block mb-2">
+          <span className="block mb-1">Upload product image</span>
+          <input type="file" accept="image/*" onChange={(event) => uploadImage(event, 'product')} />
+        </label>
+        {uploadingImageFor === 'product' && <p role="status">Uploading image...</p>}
+        {uploadError && <p role="alert" className="mb-2 text-red-600">{uploadError}</p>}
         <input
           type="text"
           placeholder="Category"
@@ -284,6 +330,12 @@ const AdminDashboard = () => {
           onChange={(e) => setContent({ ...content, hero: { ...content.hero, image: e.target.value } })}
           className="block w-full mb-2 p-2 border"
         />
+        <label className="block mb-2">
+          <span className="block mb-1">Upload hero image</span>
+          <input type="file" accept="image/*" onChange={(event) => uploadImage(event, 'hero')} />
+        </label>
+        {uploadingImageFor === 'hero' && <p role="status">Uploading image...</p>}
+        {uploadError && <p role="alert" className="mb-2 text-red-600">{uploadError}</p>}
         <button onClick={() => updateContent('hero', content.hero)} className="bg-blue-500 text-white px-4 py-2 rounded">Update Hero</button>
       </div>
     </div>

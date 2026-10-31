@@ -1,22 +1,6 @@
-import React, { useState, useEffect } from 'react'
 import { Btn } from '../common/btn'
 
-export const Hero = () => {
-  const [content, setContent] = useState({});
-
-  useEffect(() => {
-    const fetchContent = async () => {
-      const res = await fetch('https://thriftdistrict.onrender.com/api/content');
-      const data = await res.json();
-      const contentObj = {};
-      data.forEach(item => {
-        contentObj[item.section] = item.data;
-      });
-      setContent(contentObj);
-    };
-    fetchContent();
-  }, []);
-
+export const Hero = ({ content }) => {
   return (
     <>
       <div
