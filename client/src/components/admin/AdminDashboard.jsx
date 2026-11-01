@@ -7,6 +7,7 @@ const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
   const [content, setContent] = useState({});
   const [form, setForm] = useState({ name: '', description: '', price: '', image: '', category: '', stock: '' });
+  const [productImagePreview, setProductImagePreview] = useState('');
   const [uploadingImageFor, setUploadingImageFor] = useState('');
   const [uploadError, setUploadError] = useState('');
   const [savingProduct, setSavingProduct] = useState(false);
@@ -18,6 +19,11 @@ const AdminDashboard = () => {
     return !token || role !== 'admin';
   });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!productImagePreview.startsWith('blob:')) return undefined;
+    return () => URL.revokeObjectURL(productImagePreview);
+  }, [productImagePreview]);
 
   const fetchProducts = async () => {
     const res = await fetch('https://thriftdistrict.onrender.com/api/products');
@@ -56,6 +62,7 @@ const AdminDashboard = () => {
       }
       await fetchProducts();
       setForm({ name: '', description: '', price: '', image: '', category: '', stock: '' });
+      setProductImagePreview('');
       setEditing(null);
     } catch (error) {
       setProductSaveError(error.message);
@@ -66,6 +73,7 @@ const AdminDashboard = () => {
 
   const handleEdit = (product) => {
     setForm(product);
+    setProductImagePreview('');
     setEditing(product._id);
   };
 
@@ -93,6 +101,7 @@ const AdminDashboard = () => {
     const input = event.currentTarget;
     if (!file) return;
 
+    if (target === 'product') setProductImagePreview(URL.createObjectURL(file));
     setUploadingImageFor(target);
     setUploadError('');
     try {
@@ -113,8 +122,23 @@ const AdminDashboard = () => {
       }
       if (!data?.url) throw new Error('The server did not return an image URL.');
 
+      const uploadedImage = new Image();
+      await new Promise((resolve, reject) => {
+        const timeout = setTimeout(() => reject(new Error('The uploaded image link did not load. Check the image storage configuration and try again.')), 10000);
+        uploadedImage.onload = () => {
+          clearTimeout(timeout);
+          resolve();
+        };
+        uploadedImage.onerror = () => {
+          clearTimeout(timeout);
+          reject(new Error('The uploaded image link could not be displayed. Check the image storage configuration and try again.'));
+        };
+        uploadedImage.src = data.url;
+      });
+
       if (target === 'product') {
         setForm((current) => ({ ...current, image: data.url }));
+        setProductImagePreview(data.url);
       } else {
         setContent((current) => ({ ...current, hero: { ...current.hero, image: data.url } }));
       }
@@ -258,14 +282,17 @@ const AdminDashboard = () => {
           type="text"
           placeholder="Image URL"
           value={form.image}
-          onChange={(e) => setForm({ ...form, image: e.target.value })}
+          onChange={(e) => {
+            setForm({ ...form, image: e.target.value });
+            setProductImagePreview('');
+          }}
           className="block w-full mb-2 p-2 border"
         />
         <label className="block mb-2">
           <span className="block mb-1">Upload product image</span>
           <input type="file" accept="image/*" onChange={(event) => uploadImage(event, 'product')} />
         </label>
-        {form.image && <img src={form.image} alt="Product image preview" className="mb-2 h-32 w-32 object-contain" />}
+        {(productImagePreview || form.image) && <img src={productImagePreview || form.image} alt="Product image preview" className="mb-2 h-32 w-32 object-contain" />}
         {uploadingImageFor === 'product' && <p role="status">Uploading image...</p>}
         {uploadError && <p role="alert" className="mb-2 text-red-600">{uploadError}</p>}
         {productSaveError && <p role="alert" className="mb-2 text-red-600">{productSaveError}</p>}
@@ -284,7 +311,7 @@ const AdminDashboard = () => {
           className="block w-full mb-2 p-2 border"
         />
         <button type="submit" disabled={savingProduct || uploadingImageFor === 'product'} className="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50">{savingProduct ? 'Saving...' : editing ? 'Update Product' : 'Add Product'}</button>
-        {editing && <button type="button" onClick={() => { setForm({ name: '', description: '', price: '', image: '', category: '', stock: '' }); setEditing(null); }} className="ml-2 bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>}
+        {editing && <button type="button" onClick={() => { setForm({ name: '', description: '', price: '', image: '', category: '', stock: '' }); setProductImagePreview(''); setEditing(null); }} className="ml-2 bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>}
       </form>
       <h2 className="text-2xl mb-4">Products</h2>
       <ul>
