@@ -9,6 +9,8 @@ const AdminDashboard = () => {
   const [form, setForm] = useState({ name: '', description: '', price: '', image: '', category: '', stock: '' });
   const [uploadingImageFor, setUploadingImageFor] = useState('');
   const [uploadError, setUploadError] = useState('');
+  const [savingProduct, setSavingProduct] = useState(false);
+  const [productSaveError, setProductSaveError] = useState('');
   const [editing, setEditing] = useState(null);
   const [isCheckingAuth] = useState(() => {
     const token = localStorage.getItem('token');
@@ -34,21 +36,31 @@ const AdminDashboard = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSavingProduct(true);
+    setProductSaveError('');
     const token = localStorage.getItem('token');
     const url = editing ? `https://thriftdistrict.onrender.com/api/products/${editing}` : 'https://thriftdistrict.onrender.com/api/products';
     const method = editing ? 'PUT' : 'POST';
-    const res = await fetch(url, {
-      method,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify(form),
-    });
-    if (res.ok) {
-      fetchProducts();
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || `Could not save product (${res.status}).`);
+      }
+      await fetchProducts();
       setForm({ name: '', description: '', price: '', image: '', category: '', stock: '' });
       setEditing(null);
+    } catch (error) {
+      setProductSaveError(error.message);
+    } finally {
+      setSavingProduct(false);
     }
   };
 
@@ -253,8 +265,10 @@ const AdminDashboard = () => {
           <span className="block mb-1">Upload product image</span>
           <input type="file" accept="image/*" onChange={(event) => uploadImage(event, 'product')} />
         </label>
+        {form.image && <img src={form.image} alt="Product image preview" className="mb-2 h-32 w-32 object-contain" />}
         {uploadingImageFor === 'product' && <p role="status">Uploading image...</p>}
         {uploadError && <p role="alert" className="mb-2 text-red-600">{uploadError}</p>}
+        {productSaveError && <p role="alert" className="mb-2 text-red-600">{productSaveError}</p>}
         <input
           type="text"
           placeholder="Category"
@@ -269,7 +283,7 @@ const AdminDashboard = () => {
           onChange={(e) => setForm({ ...form, stock: e.target.value })}
           className="block w-full mb-2 p-2 border"
         />
-        <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">{editing ? 'Update Product' : 'Add Product'}</button>
+        <button type="submit" disabled={savingProduct || uploadingImageFor === 'product'} className="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50">{savingProduct ? 'Saving...' : editing ? 'Update Product' : 'Add Product'}</button>
         {editing && <button type="button" onClick={() => { setForm({ name: '', description: '', price: '', image: '', category: '', stock: '' }); setEditing(null); }} className="ml-2 bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>}
       </form>
       <h2 className="text-2xl mb-4">Products</h2>
