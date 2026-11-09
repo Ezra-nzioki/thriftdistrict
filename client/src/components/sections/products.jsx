@@ -159,9 +159,9 @@ export const Allproducts = ({ products }) => {
                   type='button'
                   onClick={() => setSelectedImage(item)}
                   aria-label={`View ${item.name} image full screen`}
-                  className='block w-full cursor-zoom-in'
+                  className='block aspect-[4/3] w-full cursor-zoom-in overflow-hidden bg-[#d9e5df]'
                 >
-                  <ProductImage src={item.image} alt={item.name} className='h-64 w-full bg-[#d9e5df] object-contain p-3 transition duration-500 group-hover:scale-[1.03] sm:h-72' />
+                  <ProductImage src={item.image} alt={item.name} className='h-full w-full object-contain p-2 transition duration-300' />
                 </button>
                 <div className='flex flex-col items-center p-4 text-center'>
                   <h3 className='text-lg font-semibold'>
