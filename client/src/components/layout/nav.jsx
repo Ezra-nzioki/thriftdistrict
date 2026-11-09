@@ -26,26 +26,26 @@ export const Nav = () => {
 
   return (
  <>
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <a href="/" className="flex items-center space-x-3">
-            <div className="w-9 h-9 bg-[#62109F] text-white rounded-md flex items-center justify-center font-semibold text-sm">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#c4a15a]/60 bg-[#17372e] text-sm font-bold tracking-wide text-[#dfc58c] shadow-sm">
               TD
             </div>
-            <span className="text-lg font-bold text-[#344F1F]">THRIFT DISTRICT</span>
+            <span className="text-sm font-bold tracking-[0.16em] text-[#17372e] sm:text-base">THRIFT DISTRICT</span>
           </a>
 
           <nav className="hidden md:flex md:items-center md:space-x-8">
-            <Link to="/" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">Home</Link>
-            <Link to="/about" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">About</Link>
-            <Link to="/contact" className="text-[#344F1F] hover:text-[#F4991A] font-medium transition">Contact</Link>
+            <Link to="/" className="font-medium text-[#17372e] transition hover:text-[#a47b35]">Home</Link>
+            <Link to="/about" className="font-medium text-[#17372e] transition hover:text-[#a47b35]">About</Link>
+            <Link to="/contact" className="font-medium text-[#17372e] transition hover:text-[#a47b35]">Contact</Link>
           </nav>
         
           <div className="flex items-center gap-4">
             {/* Cart Icon */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2 text-[#344F1F] hover:text-[#F4991A] transition hidden md:block"
+              className="relative hidden p-2 text-[#17372e] transition hover:text-[#a47b35] md:block"
               aria-label="Shopping cart"
             >
               <svg
@@ -63,7 +63,7 @@ export const Nav = () => {
                 />
               </svg>
               {getTotalItems() > 0 && (
-                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1 -translate-y-1 bg-[#F4991A] rounded-full">
+                <span className="absolute right-0 top-0 inline-flex -translate-y-1 translate-x-1 items-center justify-center rounded-full bg-[#c4a15a] px-2 py-1 text-xs font-bold leading-none text-[#102a23]">
                   {getTotalItems()}
                 </span>
               )}
@@ -71,7 +71,7 @@ export const Nav = () => {
 
             <Link
               to="/admin/login"
-              className="hidden md:inline-flex items-center px-3 py-2 text-sm font-medium text-[#344F1F] hover:text-[#F4991A] transition"
+              className="hidden items-center rounded-full border border-[#17372e]/15 px-4 py-2 text-sm font-medium text-[#17372e] transition hover:border-[#c4a15a] hover:text-[#a47b35] md:inline-flex"
             >
               admin
             </Link>
@@ -80,7 +80,7 @@ export const Nav = () => {
               <button
                 onClick={() => setOpen(!open)}
                 aria-label="Toggle menu"
-                className="p-2 rounded-md text-[#344F1F] hover:bg-gray-100 focus:outline-none"
+                className="rounded-full p-2 text-[#17372e] hover:bg-[#f6f2e9] focus:outline-none"
               >
                 {open ? (
                   <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -101,7 +101,7 @@ export const Nav = () => {
       </div>
 
       {open && (
-        <div className="md:hidden bg-white border-t border-gray-200">
+        <div className="border-t border-[#e7dfd1] bg-[#fffdf8] md:hidden">
           <div className="px-4 pt-2 pb-4 space-y-1">
             <Link to="/" className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium">Home</Link>
             <Link to="/about" className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium">About</Link>

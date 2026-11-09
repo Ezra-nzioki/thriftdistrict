@@ -1,11 +1,39 @@
 @import "tailwindcss";
 
-
 :root {
-  --primary-color: #F4991A;
-  --secondary-color: #344F1F;
-  --text-color:#F9F5F0;
-  --font:  "Momo Signature", cursive;
-  --btn: #62109F;
-  --btn-hover: #310950; 
+  color-scheme: light;
+  --color-forest: #17372e;
+  --color-forest-deep: #102a23;
+  --color-ivory: #f6f2e9;
+  --color-paper: #fffdf8;
+  --color-gold: #c4a15a;
+  --color-gold-light: #dfc58c;
+  --color-muted: #70776e;
+  --color-line: #e7dfd1;
+  --primary-color: var(--color-gold);
+  --secondary-color: var(--color-forest);
+  --text-color: var(--color-ivory);
+  --btn: var(--color-forest);
+  --btn-hover: var(--color-forest-deep);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-forest);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-gold-light);
+  color: var(--color-forest-deep);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
 }

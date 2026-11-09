@@ -4,31 +4,36 @@ export const Hero = ({ content }) => {
   return (
     <>
       <div
-        className="font-bold w-screen flex flex-col justify-center p-10 space-y-6 text-red-900 min-h-[500px]"
-        style={{ backgroundImage: `url(${content.hero?.image || 'https://via.placeholder.com/800'})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        className="relative isolate flex min-h-[540px] w-full flex-col items-center justify-center gap-6 overflow-hidden px-6 py-16 text-center font-bold sm:min-h-[620px] sm:px-10"
+        style={{
+          backgroundImage: `linear-gradient(90deg, rgba(16, 42, 35, .78), rgba(16, 42, 35, .46)), url(${content.hero?.image || 'https://via.placeholder.com/800'})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
       >
-        <h2 className="text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl text-[#F9F5F0] leading-relaxed drop-shadow-lg">
+        <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#dfc58c]">Considered style. A lighter footprint.</p>
+        <h1 className="max-w-4xl text-3xl leading-tight text-[#fffdf8] drop-shadow-lg sm:text-4xl md:text-6xl">
           {content.hero?.title || 'Reduce, Reuse, Revamp!<br/>Explore our online thrift shop<br/>For unique, eco-friendly fashion finds.<br/>Shop with us and join the sustainable fashion movement'}
-        </h2>
+        </h1>
         <Btn text="shop now" className="relative z-0" />
       </div>
 
-      <div className='bg-[#344F1F] border-2 border-[#F9F5F0] rounded-lg md:w-auto lg:w-auto -mt-2 mb-2 lg:mx-2 relative z-20 p-4 md:p-6 grid grid-cols-2 md:grid-cols-4 gap-0 items-center text-[#F9F5F0]'>
-        <div className="text-center p-4 border-r-2 border-b-2 md:border-b-0 border-[#F9F5F0]">
-          <h5 className="text-2xl md:text-3xl font-bold">7</h5>
-          <p className="text-sm md:text-base">year experience</p>
+      <div className='relative z-20 mx-4 -mt-7 mb-4 grid grid-cols-2 items-center gap-0 rounded-2xl border border-white/10 bg-[#17372e] p-4 text-[#fffdf8] shadow-2xl shadow-[#102a23]/20 sm:mx-8 sm:p-6 lg:mx-auto lg:max-w-6xl lg:grid-cols-4'>
+        <div className="border-r border-b border-white/15 p-4 text-center sm:p-5 md:border-b-0">
+          <h2 className="text-2xl font-bold text-[#dfc58c] md:text-3xl">7</h2>
+          <p className="text-sm text-white/75 md:text-base">years of experience</p>
         </div>
-        <div className="text-center p-4 md:border-r-2 border-b-2 md:border-b-0 border-[#F9F5F0]">
-          <h5 className="text-2xl md:text-3xl font-bold">2</h5>
-          <p className="text-sm md:text-base">opened in the country</p>
+        <div className="border-b border-white/15 p-4 text-center sm:p-5 md:border-r md:border-b-0">
+          <h2 className="text-2xl font-bold text-[#dfc58c] md:text-3xl">2</h2>
+          <p className="text-sm text-white/75 md:text-base">locations in Kenya</p>
         </div>
-        <div className="text-center p-4 border-r-2 border-[#F9F5F0]">
-          <h5 className="text-2xl md:text-3xl font-bold">1k+</h5>
-          <p className="text-sm md:text-base">trousers sold</p>
+        <div className="border-r border-white/15 p-4 text-center sm:p-5">
+          <h2 className="text-2xl font-bold text-[#dfc58c] md:text-3xl">1k+</h2>
+          <p className="text-sm text-white/75 md:text-base">pieces re-loved</p>
         </div>
-        <div className="text-center p-4">
-          <h5 className="text-2xl md:text-3xl font-bold">260+</h5>
-          <p className="text-sm md:text-base">variant trousers</p>
+        <div className="p-4 text-center sm:p-5">
+          <h2 className="text-2xl font-bold text-[#dfc58c] md:text-3xl">260+</h2>
+          <p className="text-sm text-white/75 md:text-base">one-of-a-kind finds</p>
         </div>
       </div>
     </>

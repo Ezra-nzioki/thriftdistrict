@@ -4,7 +4,10 @@ export const Btn = (props) => {
   const { text } = props  
   return (
     <div className="flex justify-center">
-        <button className="mt-6 px-8 py-3 bg-[#62109F] text-white rounded-md hover:bg-[#310950] transition font-semibold">
+        <button
+          onClick={() => document.getElementById('all-products')?.scrollIntoView({ behavior: 'smooth' })}
+          className="mt-3 min-h-12 rounded-full border border-[#dfc58c] bg-[#c4a15a] px-8 py-3 font-semibold capitalize text-[#102a23] shadow-lg shadow-black/15 transition hover:-translate-y-0.5 hover:bg-[#dfc58c]"
+        >
           {text}
         </button>
     </div>
