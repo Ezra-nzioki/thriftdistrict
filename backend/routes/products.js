@@ -66,7 +66,8 @@ router.post('/upload', verifyToken, parseImageUpload, async (req, res) => {
       });
       stream.end(req.file.buffer);
     });
-    res.status(201).json({ url: result.secure_url });
+    const imageUrl = result.secure_url.replace('/image/upload/', '/image/upload/f_jpg/');
+    res.status(201).json({ url: imageUrl });
   } catch (err) {
     res.status(502).json({ error: 'Image upload failed.' });
   }
