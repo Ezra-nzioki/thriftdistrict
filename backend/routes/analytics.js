@@ -42,6 +42,7 @@ router.post('/pageview', async (req, res) => {
 
 router.get('/summary', verifyAdmin, async (req, res) => {
   try {
+    res.set('Cache-Control', 'no-store');
     const today = new Date();
     const firstDay = new Date(today);
     firstDay.setUTCDate(firstDay.getUTCDate() - 29);
@@ -84,6 +85,16 @@ router.get('/summary', verifyAdmin, async (req, res) => {
   } catch (error) {
     console.error('Could not load analytics summary:', error);
     res.status(500).json({ error: 'Could not load analytics summary' });
+  }
+});
+
+router.delete('/reset', verifyAdmin, async (req, res) => {
+  try {
+    await PageView.deleteMany({});
+    res.status(204).end();
+  } catch (error) {
+    console.error('Could not reset analytics:', error);
+    res.status(500).json({ error: 'Could not reset analytics' });
   }
 });
 
