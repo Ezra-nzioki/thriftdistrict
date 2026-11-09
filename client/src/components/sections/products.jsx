@@ -1,69 +1,35 @@
-import { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 
 export const Allproducts = ({ products }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
   const { addToCart } = useCart();
 
-  const totalProducts = products.length;
-
-  // Calculate how many cards to show based on screen size
-  const cardsToShow = () => {
-    if (window.innerWidth >= 1024) return 4; // lg
-    if (window.innerWidth >= 768) return 2;  // md
-    return 1;  // sm
-  };
-
-  const nextProduct = () => {
-    const maxIndex = totalProducts - cardsToShow();
-    setCurrentIndex((prevIndex) => (prevIndex + 1 > maxIndex ? 0 : prevIndex + 1));
-  };
-
-  const prevProduct = () => {
-    const maxIndex = totalProducts - cardsToShow();
-    setCurrentIndex((prevIndex) => (prevIndex - 1 < 0 ? maxIndex : prevIndex - 1));
-  };
-
   return (
-    <div className='flex flex-col justify-center items-center space-y-6 p-10 bg-[#F4991A] text-[#F9F5F0]'>
-      <div className='text-center mb-6'>
-        <h3 className='text-2xl font-bold'>All Products</h3>
-        <p className='text-lg'>The products we have in stock.</p>
-      </div>
+    <section className='bg-[#F4991A] px-4 py-10 text-[#F9F5F0] sm:px-6 sm:py-14 lg:px-8'>
+      <div className='mx-auto w-full max-w-7xl'>
+        <div className='mb-8 text-center sm:mb-10'>
+          <h2 className='text-2xl font-bold sm:text-3xl'>All Products</h2>
+          <p className='mt-2 text-base sm:text-lg'>The products we have in stock.</p>
+        </div>
 
-      <div className='relative w-full  overflow-hidden'>
-        <div className='flex transition-transform duration-500' style={{ transform: `translateX(-${currentIndex * (100 / cardsToShow())}%)` }}>
+        <div className='grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {products.map((item) => (
-            <div key={item._id} className={`flex-shrink-0 align-center p-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4`}>
-              <div className='bg-white rounded-lg shadow-md overflow-hidden item-center'>
-                <img src={item.image} alt={item.name} className='w-lg h-[500px] object-contain' />
-                <div className='p-4 text-center'>
-                  <h3 className='text-lg text-[#344F1F] font-semibold'>{item.name}</h3>
-                  <p className='text-gray-100'>{item.description}</p>
-                  <p className='text-gray-800 font-bold'>ksh.{item.price.toFixed(2)}</p>
-                  <button 
-                    onClick={() => addToCart(item)}
-                    className='mt-4 bg-[#62109F] text-white px-4 py-2 rounded-md hover:bg-[#310950] transition font-semibold'
-                  >
-                    Add to Cart
-                  </button>
-                </div>
+            <article key={item._id} className='overflow-hidden rounded-lg bg-white text-[#344F1F] shadow-md'>
+              <img src={item.image} alt={item.name} className='h-64 w-full object-contain p-3 sm:h-72' />
+              <div className='flex h-full flex-col items-center p-4 text-center'>
+                <h3 className='text-lg font-semibold'>{item.name}</h3>
+                <p className='mt-2 line-clamp-3 text-sm text-gray-700'>{item.description}</p>
+                <p className='mt-3 font-bold'>Ksh.{Number(item.price).toFixed(2)}</p>
+                <button
+                  onClick={() => addToCart(item)}
+                  className='mt-4 rounded-md bg-[#62109F] px-4 py-2 font-semibold text-white transition hover:bg-[#310950]'
+                >
+                  Add to Cart
+                </button>
               </div>
-            </div>
+            </article>
           ))}
         </div>
-
-        <div className='absolute top-1/2 transform -translate-y-1/2 left-4'>
-          <button onClick={prevProduct} className='bg-white text-black px-2 py-1 rounded-md shadow'>
-            ❮
-          </button>
-        </div>
-        <div className='absolute top-1/2 transform -translate-y-1/2 right-4'>
-          <button onClick={nextProduct} className='bg-white text-black px-2 py-1 rounded-md shadow'>
-            ❯
-          </button>
-        </div>
       </div>
-    </div>
+    </section>
   );
 };
