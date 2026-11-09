@@ -122,20 +122,6 @@ const AdminDashboard = () => {
       }
       if (!data?.url) throw new Error('The server did not return an image URL.');
 
-      const uploadedImage = new Image();
-      await new Promise((resolve, reject) => {
-        const timeout = setTimeout(() => reject(new Error('The uploaded image link did not load. Check the image storage configuration and try again.')), 10000);
-        uploadedImage.onload = () => {
-          clearTimeout(timeout);
-          resolve();
-        };
-        uploadedImage.onerror = () => {
-          clearTimeout(timeout);
-          reject(new Error('The uploaded image link could not be displayed. Check the image storage configuration and try again.'));
-        };
-        uploadedImage.src = data.url;
-      });
-
       if (target === 'product') {
         setForm((current) => ({ ...current, image: data.url }));
         setProductImagePreview(data.url);
@@ -292,7 +278,14 @@ const AdminDashboard = () => {
           <span className="block mb-1">Upload product image</span>
           <input type="file" accept="image/*" onChange={(event) => uploadImage(event, 'product')} />
         </label>
-        {(productImagePreview || form.image) && <img src={productImagePreview || form.image} alt="Product image preview" className="mb-2 h-32 w-32 object-contain" />}
+        {(productImagePreview || form.image) && (
+          <img
+            src={productImagePreview || form.image}
+            alt="Product image preview"
+            className="mb-2 h-32 w-32 object-contain"
+            onError={() => setUploadError('Upload completed, but the image URL could not be previewed. The URL is still available in the Image URL field.')}
+          />
+        )}
         {uploadingImageFor === 'product' && <p role="status">Uploading image...</p>}
         {uploadError && <p role="alert" className="mb-2 text-red-600">{uploadError}</p>}
         {productSaveError && <p role="alert" className="mb-2 text-red-600">{productSaveError}</p>}
