@@ -3,11 +3,8 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/layout/header'
 import { Allproducts } from './components/sections/products'
-import { Best } from './components/sections/best'
-import { Features } from './components/sections/features'
 import { Hero } from './components/sections/hero'
-import { NewStock } from './components/sections/newStock'
-import Testimonials from './components/sections/testimonials'
+import ShopBenefits from './components/sections/ShopBenefits'
 import Footer from './components/layout/footer'
 import AdminLogin from './components/admin/AdminLogin'
 import AdminDashboard from './components/admin/AdminDashboard'
@@ -77,16 +74,16 @@ const HomePage = () => {
 
   if (!homeData) {
     return (
-      <div className="fixed inset-0 z-[100] flex min-h-screen flex-col items-center justify-center bg-[#F9F5F0] px-6 text-center text-[#344F1F]" role={loadError ? 'alert' : 'status'} aria-live="polite">
+      <div className="fixed inset-0 z-[100] flex min-h-screen flex-col items-center justify-center bg-[#e5eeea] px-6 text-center text-[#0f4c5c]" role={loadError ? 'alert' : 'status'} aria-live="polite">
         <p className="text-sm font-bold uppercase tracking-[0.25em]">Thrift District</p>
-        <div className="my-8 flex h-20 w-20 items-center justify-center rounded-full border border-[#344F1F]/20">
-          <div className="h-14 w-14 animate-spin rounded-full border-[3px] border-[#F4991A] border-t-transparent" aria-hidden="true" />
+        <div className="my-8 flex h-20 w-20 items-center justify-center rounded-full border border-[#344e41]/30">
+          <div className="h-14 w-14 animate-spin rounded-full border-[3px] border-[#344e41] border-t-transparent" aria-hidden="true" />
         </div>
         {loadError ? (
           <>
             <h1 className="text-3xl font-bold">The shop is taking a moment</h1>
             <p className="mt-2">We couldn&apos;t load the latest finds.</p>
-            <button onClick={() => { setLoadError(false); setRetryCount((count) => count + 1); }} className="mt-6 rounded bg-[#344F1F] px-5 py-3 font-semibold text-white">Try again</button>
+            <button onClick={() => { setLoadError(false); setRetryCount((count) => count + 1); }} className="mt-6 rounded-full bg-[#0f4c5c] px-6 py-3 font-semibold text-[#e5eeea] transition hover:bg-[#344e41]">Try again</button>
           </>
         ) : (
           <>
@@ -107,12 +104,8 @@ const HomePage = () => {
         structuredData={buildSiteStructuredData(SITE_URL)}
       />
       <Hero content={homeData.content} />
-      <Features />
-      <NewStock />
-      <Best />
+      <ShopBenefits />
       <Allproducts products={homeData.products} />
-      <Testimonials />
-      <AboutPage />
       <ContactPage />
     </>
   );

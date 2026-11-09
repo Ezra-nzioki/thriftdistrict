@@ -30,7 +30,7 @@ const AdminLogin = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md">
+      <form onSubmit={handleLogin} className="bg-[#eef3ee] p-6 rounded shadow-md">
         <h2 className="text-2xl mb-4">Admin Login</h2>
         <input
           type="text"

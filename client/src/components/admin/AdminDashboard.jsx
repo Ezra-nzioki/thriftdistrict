@@ -311,7 +311,7 @@ const AdminDashboard = () => {
           onChange={(e) => setForm({ ...form, stock: e.target.value })}
           className="block w-full mb-2 p-2 border"
         />
-        <button type="submit" disabled={savingProduct || uploadingImageFor === 'product'} className="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50">{savingProduct ? 'Saving...' : editing ? 'Update Product' : 'Add Product'}</button>
+        <button type="submit" disabled={savingProduct || uploadingImageFor === 'product'} className="bg-[#344e41] text-white px-4 py-2 rounded disabled:opacity-50">{savingProduct ? 'Saving...' : editing ? 'Update Product' : 'Add Product'}</button>
         {editing && <button type="button" onClick={() => { setForm({ ...emptyProductForm }); setProductImagePreview(''); setEditing(null); }} className="ml-2 bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>}
       </form>
       <h2 className="text-2xl mb-4">Products</h2>
@@ -347,7 +347,7 @@ const AdminDashboard = () => {
               ))}
             </ul>
             <div className="mt-2">
-              <button onClick={() => updateOrderStatus(order._id, 'completed')} className="bg-green-500 text-white px-2 py-1 rounded mr-2">Mark Completed</button>
+              <button onClick={() => updateOrderStatus(order._id, 'completed')} className="bg-[#344e41] text-white px-2 py-1 rounded mr-2">Mark Completed</button>
               <button onClick={() => updateOrderStatus(order._id, 'pending')} className="bg-yellow-500 text-white px-2 py-1 rounded">Mark Pending</button>
               <button onClick={() => sendOrderToAdminWhatsApp(order)} className="bg-[#25D366] text-white px-2 py-1 rounded ml-2">Send to my WhatsApp</button>
               {order.status === 'completed' && <button onClick={() => deleteOrder(order._id)} className="bg-red-500 text-white px-2 py-1 rounded ml-2">Delete Order</button>}

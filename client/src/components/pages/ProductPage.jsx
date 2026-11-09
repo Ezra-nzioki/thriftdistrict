@@ -44,14 +44,14 @@ const ProductPage = () => {
   );
 
   if (loading) {
-    return <p className='mx-auto max-w-7xl px-4 py-16 text-center text-[#17372e]' role='status'>Loading product...</p>;
+    return <p className='mx-auto max-w-7xl px-4 py-16 text-center text-[#0f4c5c]' role='status'>Loading product...</p>;
   }
   if (loadError || !product) {
     return (
-      <section className='mx-auto max-w-7xl px-4 py-16 text-center text-[#17372e]' role='alert'>
+      <section className='mx-auto max-w-7xl px-4 py-16 text-center text-[#0f4c5c]' role='alert'>
         <h1 className='text-2xl font-bold'>{loadError ? 'Could not load this product' : 'Product not found'}</h1>
         {loadError && <p className='mt-2'>{loadError}</p>}
-        <Link to='/' className='mt-5 inline-block rounded-full bg-[#17372e] px-6 py-3 font-semibold text-white transition hover:bg-[#c4a15a] hover:text-[#102a23]'>Back to shop</Link>
+        <Link to='/' className='mt-5 inline-block rounded-full bg-[#0f4c5c] px-6 py-3 font-semibold text-[#e5eeea] transition hover:bg-[#344e41]'>Back to shop</Link>
       </section>
     );
   }
@@ -59,7 +59,7 @@ const ProductPage = () => {
   const sizes = getProductSizes(product);
 
   return (
-    <section className='mx-auto max-w-7xl px-4 py-10 text-[#17372e] sm:px-6 lg:px-8'>
+    <section className='mx-auto max-w-7xl px-4 py-10 text-[#0f4c5c] sm:px-6 lg:px-8'>
       <PageMeta
         title={`${product.name} | Thrift District`}
         description={description}
@@ -67,30 +67,30 @@ const ProductPage = () => {
         image={product.image}
         structuredData={structuredData}
       />
-      <Link to='/#all-products' className='mb-6 inline-block font-semibold text-[#a47b35] underline underline-offset-4'>← Back to all products</Link>
+      <Link to='/#all-products' className='mb-6 inline-block font-semibold text-[#344e41] underline underline-offset-4'>← Back to all products</Link>
       <div className='grid gap-8 md:grid-cols-2 md:items-start'>
-        <div className='rounded-3xl border border-[#e7dfd1] bg-[#fffdf8] p-3 shadow-xl shadow-[#102a23]/10'>
+        <div className='rounded-3xl border border-[#335c67]/50 bg-[#eef3ee] p-3 shadow-xl shadow-[#0f4c5c]/10'>
           <ProductImage
             src={product.image}
             alt={product.name}
             loading='eager'
             fetchPriority='high'
-            className='aspect-square w-full rounded-2xl bg-[#f1ece2] object-contain'
+            className='aspect-square w-full rounded-2xl bg-[#d9e5df] object-contain'
           />
         </div>
         <div>
-          {product.category && <p className='text-xs font-bold uppercase tracking-[0.24em] text-[#a47b35]'>{product.category}</p>}
+          {product.category && <p className='text-xs font-bold uppercase tracking-[0.24em] text-[#335c67]'>{product.category}</p>}
           <h1 className='mt-2 text-3xl font-semibold tracking-tight sm:text-4xl'>{product.name}</h1>
           <p className='mt-4 text-2xl font-semibold'>Ksh.{Number(product.price).toFixed(2)}</p>
           <p className={`mt-3 font-semibold ${Number(product.stock) > 0 ? 'text-green-700' : 'text-red-700'}`}>
             {Number(product.stock) > 0 ? 'In stock' : 'Out of stock'}
           </p>
-          {product.description && <p className='mt-6 whitespace-pre-line leading-relaxed text-[#626c63]'>{product.description}</p>}
+          {product.description && <p className='mt-6 whitespace-pre-line leading-relaxed text-[#344e41]'>{product.description}</p>}
           {sizes.length > 0 && (
             <div className='mt-6'>
               <h2 className='font-semibold'>Available sizes</h2>
               <ul className='mt-2 flex flex-wrap gap-2'>
-                {sizes.map((size) => <li key={size} className='rounded-full border border-[#c4a15a]/50 bg-[#fffdf8] px-4 py-2 text-sm'>{size}</li>)}
+                {sizes.map((size) => <li key={size} className='rounded-full border border-[#335c67]/60 bg-[#335c67]/15 px-4 py-2 text-sm'>{size}</li>)}
               </ul>
             </div>
           )}
@@ -98,7 +98,7 @@ const ProductPage = () => {
             type='button'
             disabled={Number(product.stock) <= 0}
             onClick={() => addToCart(product)}
-            className='mt-8 min-h-12 rounded-full bg-[#17372e] px-8 py-3 font-semibold text-[#fffdf8] transition hover:bg-[#c4a15a] hover:text-[#102a23] disabled:cursor-not-allowed disabled:opacity-50'
+            className='mt-8 min-h-12 rounded-full bg-[#0f4c5c] px-8 py-3 font-semibold text-[#e5eeea] transition hover:bg-[#344e41] disabled:cursor-not-allowed disabled:opacity-50'
           >
             Add to Cart
           </button>

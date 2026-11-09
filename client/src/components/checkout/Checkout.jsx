@@ -100,7 +100,7 @@ const Checkout = () => {
               className="block w-full mb-4 p-2 border"
               required
             />
-            <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">Place Order</button>
+            <button type="submit" className="bg-[#344e41] text-white px-4 py-2 rounded">Place Order</button>
           </form>
         </div>
       </div>

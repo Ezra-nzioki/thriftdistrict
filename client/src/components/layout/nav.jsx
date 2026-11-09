@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useCart } from '../../context/CartContext'
 import { CartModal } from './cartModal'
 import { Link } from 'react-router-dom'
@@ -6,46 +6,30 @@ import { Link } from 'react-router-dom'
 export const Nav = () => {
   const [open, setOpen] = useState(false)
   const [isCartOpen, setIsCartOpen] = useState(false)
-  const [isAdmin, setIsAdmin] = useState(false)
   const { getTotalItems } = useCart()
-
-  useEffect(() => {
-    const updateAdminStatus = () => {
-      const token = localStorage.getItem('token')
-      const role = localStorage.getItem('role')
-      setIsAdmin(Boolean(token && role === 'admin'))
-    }
-
-    updateAdminStatus()
-    window.addEventListener('user-auth-change', updateAdminStatus)
-
-    return () => {
-      window.removeEventListener('user-auth-change', updateAdminStatus)
-    }
-  }, [])
 
   return (
  <>
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <a href="/" className="flex items-center space-x-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#c4a15a]/60 bg-[#17372e] text-sm font-bold tracking-wide text-[#dfc58c] shadow-sm">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0f4c5c] text-sm font-bold tracking-wide text-[#e5eeea] shadow-sm shadow-[#0f4c5c]/20">
               TD
             </div>
-            <span className="text-sm font-bold tracking-[0.16em] text-[#17372e] sm:text-base">THRIFT DISTRICT</span>
+            <span className="text-sm font-bold tracking-[0.16em] text-[#0f4c5c] sm:text-base">THRIFT DISTRICT</span>
           </a>
 
           <nav className="hidden md:flex md:items-center md:space-x-8">
-            <Link to="/" className="font-medium text-[#17372e] transition hover:text-[#a47b35]">Home</Link>
-            <Link to="/about" className="font-medium text-[#17372e] transition hover:text-[#a47b35]">About</Link>
-            <Link to="/contact" className="font-medium text-[#17372e] transition hover:text-[#a47b35]">Contact</Link>
+            <Link to="/" className="font-medium text-[#0f4c5c] transition hover:text-[#335c67]">Home</Link>
+            <Link to="/about" className="font-medium text-[#0f4c5c] transition hover:text-[#335c67]">About</Link>
+            <Link to="/contact" className="font-medium text-[#0f4c5c] transition hover:text-[#335c67]">Contact</Link>
           </nav>
         
           <div className="flex items-center gap-4">
             {/* Cart Icon */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative hidden p-2 text-[#17372e] transition hover:text-[#a47b35] md:block"
+              className="relative hidden p-2 text-[#0f4c5c] transition hover:text-[#335c67] md:block"
               aria-label="Shopping cart"
             >
               <svg
@@ -63,7 +47,7 @@ export const Nav = () => {
                 />
               </svg>
               {getTotalItems() > 0 && (
-                <span className="absolute right-0 top-0 inline-flex -translate-y-1 translate-x-1 items-center justify-center rounded-full bg-[#c4a15a] px-2 py-1 text-xs font-bold leading-none text-[#102a23]">
+                <span className="absolute right-0 top-0 inline-flex -translate-y-1 translate-x-1 items-center justify-center rounded-full bg-[#344e41] px-2 py-1 text-xs font-bold leading-none text-[#e5eeea]">
                   {getTotalItems()}
                 </span>
               )}
@@ -71,7 +55,7 @@ export const Nav = () => {
 
             <Link
               to="/admin/login"
-              className="hidden items-center rounded-full border border-[#17372e]/15 px-4 py-2 text-sm font-medium text-[#17372e] transition hover:border-[#c4a15a] hover:text-[#a47b35] md:inline-flex"
+              className="hidden items-center rounded-full border border-[#344e41]/40 px-4 py-2 text-sm font-medium text-[#0f4c5c] transition hover:border-[#e36414] hover:text-[#335c67] md:inline-flex"
             >
               admin
             </Link>
@@ -80,7 +64,7 @@ export const Nav = () => {
               <button
                 onClick={() => setOpen(!open)}
                 aria-label="Toggle menu"
-                className="rounded-full p-2 text-[#17372e] hover:bg-[#f6f2e9] focus:outline-none"
+                className="rounded-full p-2 text-[#0f4c5c] hover:bg-[#335c67]/20 focus:outline-none"
               >
                 {open ? (
                   <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -101,23 +85,23 @@ export const Nav = () => {
       </div>
 
       {open && (
-        <div className="border-t border-[#e7dfd1] bg-[#fffdf8] md:hidden">
+        <div className="border-t border-[#335c67]/35 bg-[#eef3ee] md:hidden">
           <div className="px-4 pt-2 pb-4 space-y-1">
-            <Link to="/" className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium">Home</Link>
-            <Link to="/about" className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium">About</Link>
-            <Link to="/contact" className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium">Contact</Link>
+            <Link to="/" className="block rounded-md px-3 py-2 font-medium text-[#0f4c5c] hover:bg-[#335c67]/20">Home</Link>
+            <Link to="/about" className="block rounded-md px-3 py-2 font-medium text-[#0f4c5c] hover:bg-[#335c67]/20">About</Link>
+            <Link to="/contact" className="block rounded-md px-3 py-2 font-medium text-[#0f4c5c] hover:bg-[#335c67]/20">Contact</Link>
             <button
               onClick={() => {
                 setIsCartOpen(true)
                 setOpen(false)
               }}
-              className="w-full text-left px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium flex items-center gap-2"
+              className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left font-medium text-[#0f4c5c] hover:bg-[#335c67]/20"
             >
               🛒 Cart ({getTotalItems()})
             </button>
             <Link
               to="/admin/login"
-              className="block px-3 py-2 rounded-md text-[#344F1F] hover:bg-gray-50 font-medium"
+              className="block rounded-md px-3 py-2 font-medium text-[#0f4c5c] hover:bg-[#335c67]/20"
             >
               admin
             </Link>

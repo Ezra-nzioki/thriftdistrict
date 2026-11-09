@@ -4,7 +4,7 @@ import { newProducts } from './arrival'
 export const NewStock = () => {
 
   return (
-    <section className='bg-[#ede7da] px-5 py-14 text-[#17372e] sm:px-8 lg:px-12'>
+    <section className='bg-[#e5eeea] px-5 py-14 text-[#0f4c5c] sm:px-8 lg:px-12'>
       <div className='mx-auto max-w-7xl'>
         <div className='mx-auto mb-8 max-w-2xl text-center'>
             <p className='text-xs font-bold uppercase tracking-[0.3em] text-[#a47b35]'>Just landed</p>
@@ -19,9 +19,9 @@ export const NewStock = () => {
            {newProducts.map(
             (item)=>{
             return(
-                <div key={item.id} className="group flex flex-col items-center overflow-hidden rounded-2xl border border-[#e7dfd1] bg-[#fffdf8] p-4 shadow-[0_12px_30px_-24px_rgba(16,42,35,.5)] transition duration-300 hover:-translate-y-1 hover:border-[#c4a15a]/60 hover:shadow-xl">
+                <div key={item.id} className="group flex flex-col items-center overflow-hidden rounded-2xl border border-[#335c67] bg-[#e5eeea] p-4 shadow-[0_12px_30px_-24px_rgba(15,76,92,.5)] transition duration-300 hover:-translate-y-1 hover:border-[#e36414]/60 hover:shadow-xl">
                     <img src={item.imgUrl} alt={item.name} loading="lazy" decoding="async" className="h-72 w-full rounded-xl bg-[#f1ece2] object-contain transition duration-500 group-hover:scale-[1.03]" />
-                    <h3 className="mt-4 text-center text-lg font-semibold capitalize text-[#17372e]">{item.name}</h3>
+                    <h3 className="mt-4 text-center text-lg font-semibold capitalize text-[#0f4c5c]">{item.name}</h3>
                 </div>
             )
            }

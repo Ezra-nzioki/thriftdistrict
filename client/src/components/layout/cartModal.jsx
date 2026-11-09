@@ -12,18 +12,18 @@ export const CartModal = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-50 overflow-auto">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black bg-opacity-50"
+        className="fixed inset-0 bg-[#0f4c5c]/70 backdrop-blur-sm"
         onClick={onClose}
       ></div>
 
       {/* Modal */}
-      <div className="relative bg-white rounded-lg shadow-xl m-4 max-w-2xl mx-auto my-8">
+      <div className="relative m-4 mx-auto my-8 max-w-2xl rounded-2xl border border-[#335c67]/50 bg-[#e5eeea] shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-2xl font-bold text-[#344F1F]">Shopping Cart</h2>
+        <div className="flex items-center justify-between border-b border-[#335c67]/40 p-6">
+          <h2 className="text-2xl font-bold text-[#0f4c5c]">Shopping Cart</h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-2xl"
+            className="text-2xl text-[#344e41] hover:text-[#335c67]"
           >
             ✕
           </button>
@@ -33,42 +33,42 @@ export const CartModal = ({ isOpen, onClose }) => {
         <div className="p-6">
           {cartItems.length === 0 ? (
             <div className="text-center py-8">
-              <p className="text-gray-500 text-lg">Your cart is empty</p>
+              <p className="text-lg text-[#344e41]">Your cart is empty</p>
             </div>
           ) : (
             <div className="space-y-4">
               {cartItems.map((item) => (
                 <div
                   key={item._id}
-                  className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-[#F4991A] transition"
+                  className="flex items-center gap-4 rounded-xl border border-[#335c67]/35 bg-[#eef3ee] p-4 transition hover:border-[#344e41]"
                 >
                   {/* Product Image */}
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-20 h-20 object-cover rounded"
+                    className="h-20 w-20 rounded-lg bg-[#d9e5df] object-cover"
                   />
 
                   {/* Product Info */}
                   <div className="flex-1">
-                    <h3 className="font-semibold text-[#344F1F]">{item.name}</h3>
-                    <p className="text-[#F4991A] font-bold">Ksh. {item.price.toFixed(2)}</p>
+                    <h3 className="font-semibold text-[#0f4c5c]">{item.name}</h3>
+                    <p className="font-bold text-[#344e41]">Ksh. {item.price.toFixed(2)}</p>
                   </div>
 
                   {/* Quantity Controls */}
-                  <div className="flex items-center gap-2 bg-white border border-gray-300 rounded">
+                  <div className="flex items-center gap-2 rounded-lg border border-[#335c67]/50 bg-[#eef3ee]">
                     <button
                       onClick={() => updateQuantity(item._id, item.quantity - 1)}
-                      className="px-3 py-1 text-[#344F1F] hover:bg-gray-100 transition"
+                      className="px-3 py-1 text-[#0f4c5c] transition hover:bg-[#335c67]/20"
                     >
                       −
                     </button>
-                    <span className="px-4 py-1 font-semibold text-[#344F1F]">
+                    <span className="px-4 py-1 font-semibold text-[#0f4c5c]">
                       {item.quantity}
                     </span>
                     <button
                       onClick={() => updateQuantity(item._id, item.quantity + 1)}
-                      className="px-3 py-1 text-[#344F1F] hover:bg-gray-100 transition"
+                      className="px-3 py-1 text-[#0f4c5c] transition hover:bg-[#335c67]/20"
                     >
                       +
                     </button>
@@ -76,7 +76,7 @@ export const CartModal = ({ isOpen, onClose }) => {
 
                   {/* Subtotal */}
                   <div className="text-right min-w-24">
-                    <p className="font-semibold text-[#344F1F]">
+                    <p className="font-semibold text-[#0f4c5c]">
                       Ksh. {(item.price * item.quantity).toFixed(2)}
                     </p>
                   </div>
@@ -84,7 +84,7 @@ export const CartModal = ({ isOpen, onClose }) => {
                   {/* Remove Button */}
                   <button
                     onClick={() => removeFromCart(item._id)}
-                    className="p-2 text-red-500 hover:bg-red-50 rounded transition"
+                    className="rounded p-2 text-[#0f4c5c] transition hover:bg-[#335c67]/20"
                   >
                     🗑️
                   </button>
@@ -96,29 +96,29 @@ export const CartModal = ({ isOpen, onClose }) => {
 
         {/* Footer */}
         {cartItems.length > 0 && (
-          <div className="border-t border-gray-200 p-6">
+          <div className="border-t border-[#335c67]/40 p-6">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-lg font-semibold text-[#344F1F]">Total:</span>
-              <span className="text-2xl font-bold text-[#F4991A]">
+              <span className="text-lg font-semibold text-[#0f4c5c]">Total:</span>
+              <span className="text-2xl font-bold text-[#344e41]">
                 Ksh. {getTotalPrice().toFixed(2)}
               </span>
             </div>
             <div className="flex gap-3">
               <button
                 onClick={clearCart}
-                className="flex-1 px-4 py-3 bg-gray-300 text-[#344F1F] font-semibold rounded-lg hover:bg-gray-400 transition"
+                className="flex-1 rounded-full bg-[#344e41] px-4 py-3 font-semibold text-[#e5eeea] transition hover:bg-[#0f4c5c]"
               >
                 Clear Cart
               </button>
               <button
                 onClick={onClose}
-                className="flex-1 px-4 py-3 bg-[#62109F] text-white font-semibold rounded-lg hover:bg-[#310950] transition"
+                className="flex-1 rounded-full bg-[#344e41] px-4 py-3 font-semibold text-white transition hover:bg-[#0f4c5c]"
               >
                 Continue Shopping
               </button>
               <button 
                 onClick={() => { onClose(); navigate('/checkout'); }}
-                className="flex-1 px-4 py-3 bg-[#F4991A] text-[#344F1F] font-semibold rounded-lg hover:bg-[#E07A0D] transition"
+                className="flex-1 rounded-full bg-[#0f4c5c] px-4 py-3 font-semibold text-[#e5eeea] transition hover:bg-[#344e41]"
               >
                 Checkout
               </button>
