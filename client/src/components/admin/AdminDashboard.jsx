@@ -20,11 +20,6 @@ const AdminDashboard = () => {
   });
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!productImagePreview.startsWith('blob:')) return undefined;
-    return () => URL.revokeObjectURL(productImagePreview);
-  }, [productImagePreview]);
-
   const fetchProducts = async () => {
     const res = await fetch('https://thriftdistrict.onrender.com/api/products');
     const data = await res.json();
@@ -101,7 +96,6 @@ const AdminDashboard = () => {
     const input = event.currentTarget;
     if (!file) return;
 
-    if (target === 'product') setProductImagePreview(URL.createObjectURL(file));
     setUploadingImageFor(target);
     setUploadError('');
     try {
@@ -283,7 +277,6 @@ const AdminDashboard = () => {
             src={productImagePreview || form.image}
             alt="Product image preview"
             className="mb-2 h-32 w-32 object-contain"
-            onError={() => setUploadError('Upload completed, but the image URL could not be previewed. The URL is still available in the Image URL field.')}
           />
         )}
         {uploadingImageFor === 'product' && <p role="status">Uploading image...</p>}
