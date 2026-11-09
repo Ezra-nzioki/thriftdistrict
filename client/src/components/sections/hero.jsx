@@ -4,6 +4,7 @@ export const Hero = ({ content }) => {
   return (
     <>
       <div
+        data-analytics-section='hero'
         className="relative isolate flex min-h-[540px] w-full flex-col items-center justify-center gap-6 overflow-hidden px-6 py-16 text-center font-bold sm:min-h-[620px] sm:px-10"
         style={{
           backgroundImage: `linear-gradient(90deg, rgba(15, 76, 92, .86), rgba(15, 76, 92, .5)), url(${content.hero?.image || 'https://via.placeholder.com/800'})`,

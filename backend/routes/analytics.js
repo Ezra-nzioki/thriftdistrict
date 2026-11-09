@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const PageView = require('../models/PageView');
 
 const router = express.Router();
+const allowedSections = new Set(['hero', 'benefits', 'products', 'contact']);
 
 const verifyAdmin = (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -20,16 +21,19 @@ const verifyAdmin = (req, res, next) => {
 
 router.post('/pageview', async (req, res) => {
   const path = req.body?.path;
-  const isAllowedPath = typeof path === 'string'
+  const section = req.body?.section;
+  const isAllowedPagePath = typeof path === 'string'
     && path.length <= 200
     && /^\/(?:|about|contact|checkout|products\/[a-z0-9-]+)$/.test(path);
+  const isAllowedSection = typeof section === 'string' && allowedSections.has(section);
 
-  if (!isAllowedPath) return res.status(400).json({ error: 'Invalid page path' });
+  if (!isAllowedPagePath && !isAllowedSection) return res.status(400).json({ error: 'Invalid page view' });
 
   try {
     const date = new Date().toISOString().slice(0, 10);
+    const trackedPath = isAllowedSection ? `section:${section}` : path;
     await PageView.findOneAndUpdate(
-      { date, path },
+      { date, path: trackedPath },
       { $inc: { views: 1 } },
       { upsert: true },
     );
@@ -61,8 +65,14 @@ router.get('/summary', verifyAdmin, async (req, res) => {
 
     const dailyViews = new Map();
     const pageViews = new Map();
+    const sectionViews = new Map();
     let totalViews = 0;
     for (const entry of totals) {
+      if (entry._id.path.startsWith('section:')) {
+        const section = entry._id.path.slice('section:'.length);
+        sectionViews.set(section, (sectionViews.get(section) || 0) + entry.views);
+        continue;
+      }
       dailyViews.set(entry._id.date, (dailyViews.get(entry._id.date) || 0) + entry.views);
       pageViews.set(entry._id.path, (pageViews.get(entry._id.path) || 0) + entry.views);
       totalViews += entry.views;
@@ -80,8 +90,11 @@ router.get('/summary', verifyAdmin, async (req, res) => {
       .map(([path, views]) => ({ path, views }))
       .sort((a, b) => b.views - a.views)
       .slice(0, 8);
+    const popularSections = [...sectionViews.entries()]
+      .map(([section, views]) => ({ section, views }))
+      .sort((a, b) => b.views - a.views);
 
-    res.json({ totalViews, daily, popularPages });
+    res.json({ totalViews, daily, popularPages, popularSections });
   } catch (error) {
     console.error('Could not load analytics summary:', error);
     res.status(500).json({ error: 'Could not load analytics summary' });

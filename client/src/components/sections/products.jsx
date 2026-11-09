@@ -72,7 +72,7 @@ export const Allproducts = ({ products }) => {
 
   return (
     <>
-      <section id='all-products' className='scroll-mt-20 bg-[#e5eeea] px-4 py-12 text-[#0f4c5c] sm:px-6 sm:py-16 lg:px-8'>
+      <section id='all-products' data-analytics-section='products' className='scroll-mt-20 bg-[#e5eeea] px-4 py-12 text-[#0f4c5c] sm:px-6 sm:py-16 lg:px-8'>
         <div className='mx-auto w-full max-w-7xl'>
           <div className='mb-9 text-center sm:mb-12'>
             <p className='text-xs font-bold uppercase tracking-[0.3em] text-[#335c67]'>Curated for you</p>

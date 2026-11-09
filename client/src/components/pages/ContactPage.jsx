@@ -21,7 +21,7 @@ const ContactPage = () => {
   }
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16 text-[#0f4c5c] sm:px-6 lg:py-20">
+    <section data-analytics-section='contact' className="mx-auto max-w-6xl px-4 py-16 text-[#0f4c5c] sm:px-6 lg:py-20">
       <header className="mx-auto mb-12 max-w-2xl text-center">
         <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#335c67] decoration-2 underline decoration-[#e36414] underline-offset-8">Contact</p>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">We’d love to hear from you</h1>

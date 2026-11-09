@@ -81,6 +81,8 @@ const AnalyticsPanel = () => {
 
   const maxDailyViews = Math.max(...summary.daily.map((day) => day.views), 1);
   const maxPageViews = Math.max(...summary.popularPages.map((page) => page.views), 1);
+  const maxSectionViews = Math.max(...summary.popularSections.map((section) => section.views), 1);
+  const mostViewedSection = summary.popularSections[0];
 
   return (
     <section className='mb-8 rounded-xl border border-[#335c67]/40 bg-[#eef3ee] p-4 text-[#0f4c5c] sm:p-6'>
@@ -106,6 +108,30 @@ const AnalyticsPanel = () => {
       {error && <p className='mb-4 text-sm text-red-700' role='alert'>{error}</p>}
 
       <div className='grid gap-6 lg:grid-cols-2'>
+        <div className='rounded-lg bg-white p-4'>
+          <h3 className='mb-4 font-semibold'>Most viewed section</h3>
+          {mostViewedSection ? (
+            <div>
+              <div className='mb-2 flex justify-between gap-3 text-sm'>
+                <span className='capitalize'>{mostViewedSection.section}</span>
+                <strong>{mostViewedSection.views.toLocaleString()} views</strong>
+              </div>
+              <div className='h-3 overflow-hidden rounded bg-[#e5eeea]'>
+                <div className='h-full rounded bg-[#e36414]' style={{ width: `${(mostViewedSection.views / maxSectionViews) * 100}%` }} />
+              </div>
+              <ul className='mt-4 space-y-2 text-sm text-[#344e41]'>
+                {summary.popularSections.slice(1).map((section) => (
+                  <li key={section.section} className='flex justify-between gap-3'>
+                    <span className='capitalize'>{section.section}</span>
+                    <span>{section.views.toLocaleString()} views</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <p className='text-sm text-[#344e41]'>No section views recorded yet.</p>
+          )}
+        </div>
         <div className='rounded-lg bg-white p-4'>
           <h3 className='mb-4 font-semibold'>Views per day</h3>
           <div className='flex h-44 items-end gap-1' role='img' aria-label='Bar chart of page views per day for the last 30 days'>

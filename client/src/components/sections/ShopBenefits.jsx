@@ -19,7 +19,7 @@ const benefits = [
 ];
 
 const ShopBenefits = () => (
-  <section className='bg-[#e5eeea] px-5 py-14 text-[#0f4c5c] sm:px-8 lg:px-12'>
+  <section data-analytics-section='benefits' className='bg-[#e5eeea] px-5 py-14 text-[#0f4c5c] sm:px-8 lg:px-12'>
     <div className='mx-auto max-w-7xl'>
       <div className='mx-auto max-w-2xl text-center'>
         <p className='text-xs font-bold uppercase tracking-[0.3em] text-[#335c67] decoration-2 underline decoration-[#e36414] underline-offset-8'>A better kind of find</p>
