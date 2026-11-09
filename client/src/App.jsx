@@ -13,6 +13,7 @@ import AboutPage from './components/pages/AboutPage'
 import ContactPage from './components/pages/ContactPage'
 import ProductPage from './components/pages/ProductPage'
 import PageMeta from './components/common/PageMeta'
+import PageViewTracker from './components/common/PageViewTracker'
 import { DEFAULT_SITE_URL, buildSiteStructuredData } from './utils/productSeo'
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://thriftdistrict.onrender.com/api';
@@ -136,6 +137,7 @@ const ContactRoute = () => (
 function App() {
   return (
     <Router>
+      <PageViewTracker />
       <Header/>
       <main className="pt-16">
         <Routes>

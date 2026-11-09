@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AnalyticsPanel from './AnalyticsPanel';
 
 const emptyProductForm = { name: '', description: '', price: '', image: '', category: '', sizes: '', stock: '' };
 
@@ -242,6 +243,7 @@ const AdminDashboard = () => {
   return (
     <div className="p-6">
       <h1 className="text-3xl mb-6">Admin Dashboard</h1>
+      <AnalyticsPanel />
       <form onSubmit={handleSubmit} className="mb-6">
         <input
           type="text"
