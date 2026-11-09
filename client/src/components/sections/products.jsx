@@ -161,7 +161,7 @@ export const Allproducts = ({ products }) => {
                   aria-label={`View ${item.name} image full screen`}
                   className='block aspect-[4/3] w-full cursor-zoom-in overflow-hidden bg-[#d9e5df]'
                 >
-                  <ProductImage src={item.image} alt={item.name} className='h-full w-full object-contain p-2 transition duration-300' />
+                  <ProductImage src={item.image} alt={item.name} className='block h-full w-full object-cover transition duration-300' />
                 </button>
                 <div className='flex flex-col items-center p-4 text-center'>
                   <h3 className='text-lg font-semibold'>
