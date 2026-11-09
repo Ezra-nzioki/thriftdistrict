@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const emptyProductForm = { name: '', description: '', price: '', image: '', category: '', sizes: '', stock: '' };
+
 const AdminDashboard = () => {
   const adminWhatsAppNumber = '254710865376';
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [content, setContent] = useState({});
-  const [form, setForm] = useState({ name: '', description: '', price: '', image: '', category: '', stock: '' });
+  const [form, setForm] = useState(emptyProductForm);
   const [productImagePreview, setProductImagePreview] = useState('');
   const [uploadingImageFor, setUploadingImageFor] = useState('');
   const [uploadError, setUploadError] = useState('');
@@ -49,14 +51,17 @@ const AdminDashboard = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          sizes: form.sizes.split(',').map((size) => size.trim()).filter(Boolean),
+        }),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => null);
         throw new Error(data?.error || `Could not save product (${res.status}).`);
       }
       await fetchProducts();
-      setForm({ name: '', description: '', price: '', image: '', category: '', stock: '' });
+      setForm({ ...emptyProductForm });
       setProductImagePreview('');
       setEditing(null);
     } catch (error) {
@@ -67,7 +72,10 @@ const AdminDashboard = () => {
   };
 
   const handleEdit = (product) => {
-    setForm(product);
+    setForm({
+      ...product,
+      sizes: (Array.isArray(product.sizes) ? product.sizes : [product.sizes || product.size]).filter(Boolean).join(', '),
+    });
     setProductImagePreview('');
     setEditing(product._id);
   };
@@ -290,6 +298,13 @@ const AdminDashboard = () => {
           className="block w-full mb-2 p-2 border"
         />
         <input
+          type="text"
+          placeholder="Sizes (comma-separated, e.g. S, M, L)"
+          value={form.sizes}
+          onChange={(e) => setForm({ ...form, sizes: e.target.value })}
+          className="block w-full mb-2 p-2 border"
+        />
+        <input
           type="number"
           placeholder="Stock"
           value={form.stock}
@@ -297,7 +312,7 @@ const AdminDashboard = () => {
           className="block w-full mb-2 p-2 border"
         />
         <button type="submit" disabled={savingProduct || uploadingImageFor === 'product'} className="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50">{savingProduct ? 'Saving...' : editing ? 'Update Product' : 'Add Product'}</button>
-        {editing && <button type="button" onClick={() => { setForm({ name: '', description: '', price: '', image: '', category: '', stock: '' }); setProductImagePreview(''); setEditing(null); }} className="ml-2 bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>}
+        {editing && <button type="button" onClick={() => { setForm({ ...emptyProductForm }); setProductImagePreview(''); setEditing(null); }} className="ml-2 bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>}
       </form>
       <h2 className="text-2xl mb-4">Products</h2>
       <ul>

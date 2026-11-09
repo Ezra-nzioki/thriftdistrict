@@ -14,8 +14,12 @@ import AdminDashboard from './components/admin/AdminDashboard'
 import Checkout from './components/checkout/Checkout'
 import AboutPage from './components/pages/AboutPage'
 import ContactPage from './components/pages/ContactPage'
+import ProductPage from './components/pages/ProductPage'
+import PageMeta from './components/common/PageMeta'
+import { DEFAULT_SITE_URL, buildSiteStructuredData } from './utils/productSeo'
 
-const API_URL = 'https://thriftdistrict.onrender.com/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://thriftdistrict.onrender.com/api';
+const SITE_URL = import.meta.env.VITE_SITE_URL || DEFAULT_SITE_URL;
 let homeDataPromise;
 
 const preloadImage = (src) => new Promise((resolve) => {
@@ -44,9 +48,7 @@ const getHomeData = () => {
         result[item.section] = item.data;
         return result;
       }, {});
-      const imageUrls = [content.hero?.image, ...products.map((product) => product.image)];
-
-      await Promise.all([...new Set(imageUrls)].map(preloadImage));
+      await preloadImage(content.hero?.image);
       return { products, content };
     }).catch((error) => {
       homeDataPromise = null;
@@ -98,6 +100,12 @@ const HomePage = () => {
 
   return (
     <>
+      <PageMeta
+        title='Thrift District | Shop Sustainable Second-Hand Fashion'
+        description='Discover unique, affordable second-hand fashion at Thrift District. Shop sustainable style and find your next favorite piece.'
+        image={homeData.content.hero?.image || homeData.products.find((product) => product.image)?.image}
+        structuredData={buildSiteStructuredData(SITE_URL)}
+      />
       <Hero content={homeData.content} />
       <Features />
       <NewStock />
@@ -110,6 +118,28 @@ const HomePage = () => {
   );
 };
 
+const AboutRoute = () => (
+  <>
+    <PageMeta
+      title='About Thrift District | Sustainable Fashion'
+      description='Learn about Thrift District and our mission to make unique second-hand fashion affordable and sustainable.'
+      path='/about'
+    />
+    <AboutPage />
+  </>
+);
+
+const ContactRoute = () => (
+  <>
+    <PageMeta
+      title='Contact Thrift District'
+      description='Get in touch with Thrift District for help finding your next favorite second-hand fashion piece.'
+      path='/contact'
+    />
+    <ContactPage />
+  </>
+);
+
 function App() {
   return (
     <Router>
@@ -117,9 +147,10 @@ function App() {
       <main className="pt-16">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/products/:slug" element={<ProductPage />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/about" element={<AboutRoute />} />
+          <Route path="/contact" element={<ContactRoute />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin" element={<AdminDashboard/>}/>

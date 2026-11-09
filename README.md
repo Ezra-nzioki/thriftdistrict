@@ -83,3 +83,26 @@ src/
 Thrift District is dedicated to promoting sustainable fashion through an online thrift shop. Join the sustainable fashion movement and shop unique, eco-friendly clothing items.
 
 Built with ❤️ for learning React and modern web development.
+
+## Storefront discovery and SEO
+
+- The All Products section filters locally by product name, description, category, and size. Search is debounced; category, size, and price/newest sorting can be combined.
+- Set product sizes in the admin form as comma-separated tags (for example, `S, M, L`). Existing products remain searchable by name, description, and category; older products without a size are not assigned one automatically.
+- Product titles link to stable `/products/<name>-<id>` pages. Each product page includes a canonical URL, Open Graph/Twitter metadata, and Product JSON-LD with its real price and stock availability. Rating markup is emitted only when genuine `rating` and `reviewCount` data exists; no ratings are fabricated.
+- Product gallery images use lazy loading and responsive Cloudinary width/quality transforms. The hero image remains eager so the initial viewport can render promptly.
+- `npm run build` fetches the public product list from `API_URL` (or `VITE_API_URL`), writes prerendered SEO metadata for the home, about, contact, and product pages, and generates `dist/sitemap.xml`. The build fails clearly if the product API cannot be reached instead of publishing a silently incomplete sitemap.
+- `robots.txt` points crawlers to the deployed sitemap. After changing the site hostname, update `SITE_URL` (or `VITE_SITE_URL`) and `client/public/robots.txt`. The defaults use `https://thriftdistrict-78lo.onrender.com`.
+- Static sitemap and product HTML are snapshots of the catalog at build time. Rebuild/redeploy the client after adding or removing products so crawlers receive the current sitemap and pre-rendered metadata. The React app still supports direct product routes for products added after the last build.
+
+For a local build against a non-production backend:
+
+```bash
+cd client
+API_URL=http://localhost:5005/api \
+VITE_API_URL=http://localhost:5005/api \
+SITE_URL=http://localhost:5173 \
+VITE_SITE_URL=http://localhost:5173 \
+npm run build
+```
+
+In Render, set the same values as service environment variables when using a custom frontend/backend hostname. `API_URL` is used by the build-time sitemap generator; `VITE_API_URL` and `VITE_SITE_URL` are embedded in the browser bundle and must be set before building.

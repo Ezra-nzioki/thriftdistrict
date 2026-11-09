@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://thriftdistrict-78lo.onrender.com/sitemap.xml

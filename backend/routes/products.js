@@ -77,9 +77,9 @@ router.post('/upload', verifyToken, parseImageUpload, async (req, res) => {
 router.post('/', verifyToken, async (req, res) => {
   if (req.user.role !== 'admin') return res.status(403).json({ error: 'Admin access required' });
 
-  const { name, description, price, image, category, stock } = req.body;
+  const { name, description, price, image, category, sizes, stock, rating, reviewCount } = req.body;
   try {
-    const product = new Product({ name, description, price, image, category, stock });
+    const product = new Product({ name, description, price, image, category, sizes, stock, rating, reviewCount });
     await product.save();
     res.status(201).json(product);
   } catch (err) {
